@@ -1,0 +1,43 @@
+@import '../abstracts/variables';
+html {
+   font-size: 100%;
+   scroll-behavior: smooth;
+}
+
+*,
+*:after,
+*:before {
+   box-sizing: border-box;
+   -ms-text-size-adjust: 100%;
+   -webkit-text-size-adjust: 100%;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+   font-family: $font-main;
+   font-weight: 400;
+   overflow-x: hidden;
+   margin: 0;
+   padding: 0;
+   font-size: 14px;
+   -webkit-font-smoothing: antialiased;
+   text-rendering: optimizeLegibility;
+}
+
+/* width */
+// ::-webkit-scrollbar {
+//   width: 8px;
+//   height: 8px;
+// }
+
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: #fff;
+// }
+
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: #512bd4;
+// }
