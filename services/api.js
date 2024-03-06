@@ -2,7 +2,7 @@ import { access_token } from '~/services/tokenService.js';
 import { refresh_token } from '~/services/tokenService.js';
 import { authService } from '~/services/authService.js';
 
-const { $toast } = useNuxtApp();
+// const { $toast } = useNuxtApp();
 
 function ErrorHandle(statusCode) {
    switch (statusCode) {
@@ -32,7 +32,6 @@ api.interceptors.request.use(
       const token = access_token;
       if (token.value !== null) {
          config.headers.Authorization = `Bearer ${token.value}`;
-         console.log('sasasa', access_token?.value);
       }
       return config;
    },
@@ -52,12 +51,12 @@ api.interceptors.response.use(
             access_token.value = response.access;
             return api.request(error.config);
          } catch (refreshError) {
-            $toast.error('Token yangilash muvaffaqiyatsiz:', refreshError);
+            console.log('Token yangilash muvaffaqiyatsiz:', refreshError);
          }
       } else {
          const errorMessage = ErrorHandle(error.response.status);
          if (errorMessage) {
-            $toast.error(errorMessage);
+            // $toast.error(errorMessage);
          }
       }
       return Promise.reject(error);

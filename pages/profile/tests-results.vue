@@ -7,7 +7,7 @@
       <div class="relative overflow-x-auto">
          <table class="w-full text-sm text-left rtl:text-right">
             <thead class="border-b">
-               <tr>
+               <tr class="text-center">
                   <th scope="col" class="p-4">#</th>
                   <th scope="col" class="p-4">Sana va vaqt</th>
                   <th scope="col" class="p-4">Test turi</th>
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                <tr
-                  class="bg-white border-b hover:bg-gray-100 transition-all duration-300"
+                  class="bg-white border-b hover:bg-gray-100 transition-all duration-300 text-center"
                   v-for="(item, i) in 6"
                   :key="item"
                >
@@ -30,7 +30,7 @@
                   <td class="p-4">70.7</td>
                   <td class="p-4">
                      <span
-                        class="flex items-center gap-1 cursor-pointer text-primary-700 hover:text-primary-800 transition-all"
+                        class="flex items-center justify-center gap-1 cursor-pointer text-primary-700 hover:text-primary-800 transition-all"
                         @click="goToLink(i)"
                      >
                         Ko'rish

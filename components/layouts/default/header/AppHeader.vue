@@ -1,6 +1,13 @@
 <script setup>
+import { ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import {
+   DropdownMenu,
+   DropdownMenuContent,
+   DropdownMenuItem,
+   DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 
 const menu = ref([
    {

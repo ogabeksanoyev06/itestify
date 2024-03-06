@@ -3,7 +3,7 @@ import api from '~/services/api';
 export const testService = {
    sciences: (data) => api.get(`tests/sciences/`, data),
    specialists: (data) => api.get('tests/specialists/', data),
-   subjects: (data) => api.get('tests/subjects/', data),
+   subjects: (science_id) => api.get(`tests/subjects/?science_id=${science_id}`),
    classes: (data) => api.get('tests/classes/', data),
    testTypes: (payload) => {
       const url = payload ? `tests/test-types/?category_type=${payload}` : `tests/test-types/`;

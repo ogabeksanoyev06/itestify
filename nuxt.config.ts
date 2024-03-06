@@ -10,12 +10,12 @@ export default defineNuxtConfig({
    plugins: [
       { src: './plugins/vee-validate-rules.js' },
       { src: './plugins/vee-validate-components.js' },
+      { src: './plugins/sonner.client.js' },
       {
          src: '~/plugins/aos',
          mode: 'client',
          ssr: false
       }
-      // { src: '~/plugins/moment.js', ssr: false }
    ],
    shadcn: {
       prefix: '',
@@ -34,5 +34,8 @@ export default defineNuxtConfig({
       classPrefix: '',
       classSuffix: '',
       storageKey: 'nuxt-color-mode'
+   },
+   build: {
+      transpile: ['vue-sonner']
    }
 });

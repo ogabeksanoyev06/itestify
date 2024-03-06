@@ -11,9 +11,17 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 
+const loading = ref(false);
+
 const sciences = ref([]);
 
 const classes = ref([]);
+
+const questionsCount = ref(5);
+
+const selectedClass = ref(2);
+
+const selectedLevel = ref('beginner');
 
 const activeScience = ref(null);
 
@@ -62,23 +70,19 @@ const questionLevelList = ref([
    }
 ]);
 
-const questionsCount = ref(5);
-
-const selectedClass = ref(2);
-
-const selectedLevel = ref('beginner');
-
 function selectedScience(id) {
    activeScience.value = id;
 }
 
 async function getSciences() {
+   loading.value = true;
    try {
       const response = await testService.sciences();
       sciences.value = response;
    } catch (error) {
       console.error('Error fetching user:', error);
    } finally {
+      loading.value = false;
    }
 }
 
