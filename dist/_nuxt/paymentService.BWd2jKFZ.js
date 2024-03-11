@@ -1,0 +1,1 @@
+import{c as a}from"./api.BrGyU9uH.js";const s={paymentsHistory:e=>a.get("users/payments/history/",e),paymentsMerchant:e=>a.get("payments/merchant/",e),fillUserBalance:e=>a.post("payments/payme/FillUserBalance/",{amount:e*100})};export{s as p};

@@ -1,1 +1,0 @@
-import{b as s}from"./authService.BBKLY34u.js";const i={user:()=>s.get("users/profile/"),updateProfile:o=>s.patch("users/profile/",o),districts:o=>s.get(`common/districts/?region_id=${o}`),regions:()=>s.get("common/regions/"),schools:o=>s.get(`common/schools/?district_id=${o}`)};export{i as p};

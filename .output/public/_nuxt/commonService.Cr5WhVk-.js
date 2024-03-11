@@ -1,0 +1,1 @@
+import{c as s}from"./api.BrGyU9uH.js";const i={districts:o=>s.get(`common/districts/?region_id=${o}`),regions:o=>s.get("common/regions/",o),schools:o=>s.get(`common/schools/?district_id=${o}`),statistics:o=>s.get("common/statistics/",o)};export{i as c};
