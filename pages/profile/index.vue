@@ -31,12 +31,12 @@ const user = ref({
    father_name: '',
    birth_date: '',
    district: '',
-   school: '',
+   school: null,
    type: 'applicant',
    region: '',
    balance: '',
    phone: '',
-   email: ''
+   email: null
 });
 
 const usertype = ref([
@@ -125,8 +125,8 @@ async function updateProfile() {
 }
 
 watch(
-   () => user.value.region,
-   async (newValue, oldValue) => {
+   () => user.region,
+   (newValue, oldValue) => {
       if (newValue !== oldValue) {
          getDistricts(newValue);
       }
@@ -134,8 +134,8 @@ watch(
 );
 
 watch(
-   () => user.value.district,
-   async (newValue, oldValue) => {
+   () => user.district,
+   (newValue, oldValue) => {
       if (newValue !== oldValue) {
          getSchools(newValue);
       }
@@ -273,6 +273,7 @@ onMounted(() => {
                      </VField>
                   </div>
                   <div class="flex flex-col">
+                     {{ user.region }}
                      <VField name="region">
                         <Label for="region">Viloyatni tanlang</Label>
                         <Select v-model="user.region">

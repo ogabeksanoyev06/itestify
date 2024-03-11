@@ -175,7 +175,7 @@ async function registerToSystem() {
                   <div class="flex flex-col">
                      <VField
                         name="password"
-                        rules="required|passwordformat|max:12|min:8"
+                        rules="required|passwordformat|max:8|min:8"
                         v-model="user.password"
                         v-slot="{ errors }"
                      >
@@ -236,7 +236,7 @@ async function registerToSystem() {
                   <div class="flex flex-col">
                      <VField
                         name="passwordConfirmation"
-                        rules="required|passwordformat|max:12|min:8|confirmed:@password"
+                        rules="required|passwordformat|max:8|min:8|confirmed:@password"
                         v-model="user.passwordConfirmation"
                         v-slot="{ errors }"
                      >
