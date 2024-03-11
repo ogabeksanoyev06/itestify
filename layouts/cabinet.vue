@@ -14,23 +14,25 @@
                         <div
                            class="flex items-center justify-center text-white h-full w-full text-base object-cover relative text-transparent bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-content"
                         >
-                           OS
+                           {{ user.first_name?.slice(0, 1) + user.last_name?.slice(0, 1) }}
                         </div>
                      </div>
                      <div>
                         <h2 class="text-primary-800 text-base sm:text-xl font-semibold">
                            {{ user.username }}
                         </h2>
-                        <p class="text-gray text-base font-medium">+{{ user.phone }}</p>
+                        <p class="text-gray text-base font-medium">{{ phoneFormat(user.phone) }}</p>
                      </div>
                   </div>
                   <div>
                      <h2 class="text-primary-800 text-base sm:text-xl font-semibold">Mening hisobim</h2>
-                     <p class="text-gray text-base font-medium">{{ user.balance }} so'm</p>
+                     <p class="text-gray text-base font-medium">{{ currencyFormat(user.balance) }} so'm</p>
                   </div>
                   <div>
                      <h2 class="text-primary-800 text-base sm:text-xl font-semibold">Mening maqomim</h2>
-                     <p class="text-gray text-base font-medium">{{ user.type }}</p>
+                     <p class="text-gray text-base font-medium">
+                        {{ usertype.find((type) => type.value === user.type)?.name }}
+                     </p>
                   </div>
                </div>
                <nav class="border-t mt-5">
@@ -64,6 +66,7 @@
 import { useRouter, useRoute } from 'vue-router';
 import { profileService } from '~/services/profileService';
 import AppHeader from '~/components/layouts/default/header/AppHeader.vue';
+import { phoneFormat, currencyFormat } from '~/utils/format';
 
 const router = useRouter();
 const route = useRoute();

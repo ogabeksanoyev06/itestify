@@ -75,7 +75,8 @@ async function registerToSystem() {
          $toast.error("Ro'yxatdan o'tishda xatolik yuz berdi. Iltimos, qayta urinib ko'ring.");
       }
    } catch (error) {
-      $toast.error("Ro'yxatdan o'tishda xatolik yuz berdi. Iltimos, qayta urinib ko'ring....");
+      $toast.error(error.response.data.message);
+      console.log(error.response);
    } finally {
       loading.value = false;
    }
@@ -235,7 +236,7 @@ async function registerToSystem() {
                   <div class="flex flex-col">
                      <VField
                         name="passwordConfirmation"
-                        rules="required|passwordformat|max:8|min:8|confirmed:@password"
+                        rules="required|passwordformat|max:12|min:8|confirmed:@password"
                         v-model="user.passwordConfirmation"
                         v-slot="{ errors }"
                      >

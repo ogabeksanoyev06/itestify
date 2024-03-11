@@ -1,5 +1,6 @@
 <script setup>
 import { profileService } from '~/services/profileService';
+import { commonService } from '~/services/commonService';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-vue-next';
 import { cn } from '@/lib/utils';
@@ -57,7 +58,7 @@ const loading = ref(false);
 
 async function getRegions() {
    try {
-      const response = await profileService.regions();
+      const response = await commonService.regions();
       regions.value.options = response;
    } catch (error) {
       console.error('Error fetching user:', error);
@@ -66,7 +67,7 @@ async function getRegions() {
 
 async function getDistricts(regionId) {
    try {
-      const response = await profileService.districts(regionId);
+      const response = await commonService.districts(regionId);
       districts.value.options = response;
    } catch (error) {
       console.error('Error fetching districts:', error);
@@ -75,7 +76,7 @@ async function getDistricts(regionId) {
 
 async function getSchools(districtId) {
    try {
-      const response = await profileService.schools(districtId);
+      const response = await commonService.schools(districtId);
       schools.value.options = response;
    } catch (error) {
       console.error('Error fetching schools:', error);
@@ -87,13 +88,13 @@ async function getUser() {
    try {
       const response = await profileService.user();
       user.value = response;
-      user.value.phone = response.phone.slice(3);
-      user.value.region = response.region.id.toString();
-      user.value.district = response.district.id.toString();
-      user.value.school = response.school.id.toString();
-      schools.value.id = response.school.id.toString();
+      user.value.phone = response?.phone?.slice(3);
+      user.value.region = response.region?.id?.toString();
+      user.value.district = response.district?.id?.toString();
+      user.value.school = response.school?.id?.toString();
+      schools.value.id = response.school?.id?.toString();
    } catch (error) {
-      console.error('Error fetching user:', error);
+      console.error(error);
    } finally {
       loading.value = false;
    }
@@ -113,11 +114,9 @@ async function updateProfile() {
    form.append('phone', '998' + user.value.phone);
    try {
       const res = await profileService.updateProfile(form);
-      if (!res.error) {
-         user.value = res;
-         getUser();
-         $toast.success('Profile muvaffaqiyatli o\`zgartirildi');
-      }
+      user.value = res;
+      getUser();
+      $toast.success('Profile muvaffaqiyatli o\`zgartirildi');
    } catch (error) {
       $toast.error('Xatolik yuz berdi', error);
    } finally {

@@ -30,7 +30,7 @@ const api = axios.create({
 api.interceptors.request.use(
    (config) => {
       const token = access_token;
-      if (token.value !== null) {
+      if (token.value) {
          config.headers.Authorization = `Bearer ${token.value}`;
       }
       return config;
@@ -51,7 +51,7 @@ api.interceptors.response.use(
             access_token.value = response.access;
             return api.request(error.config);
          } catch (refreshError) {
-            console.log('Token yangilash muvaffaqiyatsiz:', refreshError);
+            // $toast.error('Token yangilash muvaffaqiyatsiz:', refreshError);
          }
       } else {
          const errorMessage = ErrorHandle(error.response.status);

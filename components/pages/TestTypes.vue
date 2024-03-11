@@ -22,44 +22,46 @@ onMounted(() => {
 </script>
 
 <template>
-   <div class="py-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-         <div
-            v-for="(item, i) in testTypes"
-            :key="i"
-            data-aos="fade-up"
-            :data-aos-duration="(i + 1) * 100"
-            class="min-h-[100px]"
-         >
+   <div class="py-8 mt-6">
+      <div class="container">
+         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div
-               class="rounded-xl border border-border bg-card text-card-foreground shadow h-full cursor-pointer hover:shadow-none transition-all duration-300"
+               v-for="(item, index) in testTypes"
+               :key="index"
+               data-aos="fade-up"
+               :data-aos-duration="(index + 1) * 100"
+               class="min-h-[100px]"
             >
-               <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-if="loading">
-                  <div class="pointer-events-none">
-                     <span class="flex-shrink-0">
-                        <Skeleton class="h-12 w-12 rounded-full" />
-                     </span>
+               <div
+                  class="rounded-xl border border-border bg-card text-card-foreground shadow h-full cursor-pointer hover:shadow-none transition-all duration-300"
+               >
+                  <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-if="loading">
+                     <div class="pointer-events-none">
+                        <span class="flex-shrink-0">
+                           <Skeleton class="h-12 w-12 rounded-full" />
+                        </span>
+                     </div>
+                     <div class="flex flex-col space-y-2">
+                        <Skeleton class="h-4 w-[200px]" />
+                        <Skeleton class="h-4 w-[250px]" />
+                        <Skeleton class="h-4 w-[250px]" />
+                     </div>
                   </div>
-                  <div class="flex flex-col space-y-2">
-                     <Skeleton class="h-4 w-[200px]" />
-                     <Skeleton class="h-4 w-[250px]" />
-                     <Skeleton class="h-4 w-[250px]" />
-                  </div>
-               </div>
-               <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-else>
-                  <div class="pointer-events-none">
-                     <span class="flex-shrink-0">
-                        <img
-                           src="https://cdn.commeta.uz/100x/https://cdn.commeta.uz/media/media/Group_MVewrf7.svg"
-                           class="w-8 h-8"
-                        />
-                     </span>
-                  </div>
-                  <div class="flex flex-col space-y-2">
-                     <h3 class="font-semibold leading-none tracking-tight">{{ item.title }}</h3>
-                     <p class="text-sm text-muted-foreground">
-                        {{ item.short_description }}
-                     </p>
+                  <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-else>
+                     <div class="pointer-events-none">
+                        <span class="flex-shrink-0">
+                           <img
+                              src="https://cdn.commeta.uz/100x/https://cdn.commeta.uz/media/media/Group_MVewrf7.svg"
+                              class="w-8 h-8"
+                           />
+                        </span>
+                     </div>
+                     <div class="flex flex-col space-y-2">
+                        <h3 class="font-semibold leading-none tracking-tight">{{ item.title }}</h3>
+                        <p class="text-sm text-muted-foreground">
+                           {{ item.short_description }}
+                        </p>
+                     </div>
                   </div>
                </div>
             </div>

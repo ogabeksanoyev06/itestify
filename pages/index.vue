@@ -4,6 +4,8 @@ import CtaBanner from '~/components/pages/CtaBanner.vue';
 import HeroBanner from '~/components/pages/HeroBanner.vue';
 import TestTypes from '~/components/pages/TestTypes.vue';
 import WhyUs from '~/components/pages/WhyUs.vue';
+import Features from '~/components/pages/Features.vue';
+import UsefulLinks from '~/components/pages/UsefulLinks.vue';
 </script>
 
 <template>
@@ -32,7 +34,10 @@ import WhyUs from '~/components/pages/WhyUs.vue';
          text="Xalqaro tadqiqotlar bo'limi o'quvchi yoshlarni har 5 yilda PISA, PIRLSS, TIMSS testlaridan o'z bilimini tekshirish imkoniyatini beradi."
          :order="true"
       />
-      <WhyUs />
+      <Features />
+      <UsefulLinks />
       <Counts />
+
+      <WhyUs />
    </div>
 </template>

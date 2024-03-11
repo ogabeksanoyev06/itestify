@@ -46,7 +46,7 @@ async function loginToSystem() {
       router.push({ path: '/' });
       $toast.success('Tizimga muvaffaqiyatli kirdingiz!');
    } catch (error) {
-      $toast.error('Xatolik yuz berdi');
+      $toast.error(error.response.data.detail);
    } finally {
       loading.value = false;
    }
@@ -93,7 +93,7 @@ async function resetPassword() {
                <div class="flex flex-col">
                   <VField
                      name="password"
-                     rules="required|passwordformat|max:12|min:8"
+                     rules="required|passwordformat|max:8|min:8"
                      v-model="form.password"
                      v-slot="{ errors }"
                   >

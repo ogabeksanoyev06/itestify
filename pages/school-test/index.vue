@@ -11,6 +11,8 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 
+const { $toast } = useNuxtApp();
+
 const loading = ref(false);
 
 const sciences = ref([]);
@@ -96,6 +98,24 @@ async function getClasses() {
    }
 }
 
+async function startSchoolTest() {
+   loading.value = true;
+   let paramtersModel = {};
+   paramtersModel.science_id = activeScience.value;
+   paramtersModel.class_id = selectedClass.value;
+   paramtersModel.test_score = selectedLevel.value;
+   paramtersModel.test_count = questionsCount.value;
+
+   try {
+      const response = await testService.schoolTest(paramtersModel);
+      console.log(response);
+   } catch (error) {
+      $toast.error(error.response.data.message);
+   } finally {
+      loading.value = false;
+   }
+}
+
 onMounted(() => {
    getSciences();
    getClasses();
@@ -104,100 +124,104 @@ onMounted(() => {
 
 <template>
    <div class="py-8">
-      <div class="flex flex-wrap gap-3 border-b border-border pb-8">
-         <Button
-            v-for="item in sciences"
-            :key="item.id"
-            @click="selectedScience(item.id)"
-            :variant="item.id === activeScience ? '' : 'outline'"
-         >
-            {{ item.name }}
-         </Button>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-         <div>
-            <Select v-model="questionsCount">
-               <SelectTrigger>
-                  <SelectValue placeholder="Savollar sonini tanlang" />
-               </SelectTrigger>
-               <SelectContent>
-                  <SelectGroup>
-                     <SelectLabel>Savollar sonini tanlang</SelectLabel>
-                     <SelectItem v-for="item in questionsCountSelect" :key="item.id" :value="item.id">
-                        {{ item.name }}
-                     </SelectItem>
-                  </SelectGroup>
-               </SelectContent>
-            </Select>
+      <div class="container">
+         <div class="flex flex-wrap gap-3 border-b border-border pb-8">
+            <Button
+               v-for="item in sciences"
+               :key="item.id"
+               @click="selectedScience(item.id)"
+               :variant="item.id === activeScience ? '' : 'outline'"
+            >
+               {{ item.name }}
+            </Button>
          </div>
-         <div>
-            <Select v-model="selectedClass">
-               <SelectTrigger>
-                  <SelectValue placeholder="Sinfni tanlang" />
-               </SelectTrigger>
-               <SelectContent>
-                  <SelectGroup>
-                     <SelectLabel>Sinfni tanlang</SelectLabel>
-                     <SelectItem v-for="item in classes" :key="item.id" :value="item.id">
-                        {{ item.number }}
-                     </SelectItem>
-                  </SelectGroup>
-               </SelectContent>
-            </Select>
+         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+            <div>
+               <Select v-model="questionsCount">
+                  <SelectTrigger>
+                     <SelectValue placeholder="Savollar sonini tanlang" />
+                  </SelectTrigger>
+                  <SelectContent>
+                     <SelectGroup>
+                        <SelectLabel>Savollar sonini tanlang</SelectLabel>
+                        <SelectItem v-for="item in questionsCountSelect" :key="item.id" :value="item.id">
+                           {{ item.name }}
+                        </SelectItem>
+                     </SelectGroup>
+                  </SelectContent>
+               </Select>
+            </div>
+            <div>
+               <Select v-model="selectedClass">
+                  <SelectTrigger>
+                     <SelectValue placeholder="Sinfni tanlang" />
+                  </SelectTrigger>
+                  <SelectContent>
+                     <SelectGroup>
+                        <SelectLabel>Sinfni tanlang</SelectLabel>
+                        <SelectItem v-for="item in classes" :key="item.id" :value="item.id">
+                           {{ item.number }}
+                        </SelectItem>
+                     </SelectGroup>
+                  </SelectContent>
+               </Select>
+            </div>
+            <div>
+               <Select v-model="selectedLevel">
+                  <SelectTrigger>
+                     <SelectValue placeholder="Darajani tanlang" />
+                  </SelectTrigger>
+                  <SelectContent>
+                     <SelectGroup>
+                        <SelectLabel>Darajani tanlang</SelectLabel>
+                        <SelectItem
+                           v-for="item in questionLevelList"
+                           :key="item.id"
+                           :value="item.id"
+                           :disabled="item.disabled"
+                        >
+                           {{ item.name }}
+                        </SelectItem>
+                     </SelectGroup>
+                  </SelectContent>
+               </Select>
+            </div>
          </div>
-         <div>
-            <Select v-model="selectedLevel">
-               <SelectTrigger>
-                  <SelectValue placeholder="Darajani tanlang" />
-               </SelectTrigger>
-               <SelectContent>
-                  <SelectGroup>
-                     <SelectLabel>Darajani tanlang</SelectLabel>
-                     <SelectItem
-                        v-for="item in questionLevelList"
-                        :key="item.id"
-                        :value="item.id"
-                        :disabled="item.disabled"
+         <div class="mt-6">
+            <div class="relative overflow-x-auto my-6">
+               <table class="w-full text-sm text-left rtl:text-right">
+                  <tbody>
+                     <tr class="bg-primary text-white text-center">
+                        <th scope="col" class="px-6 py-4">#</th>
+                        <th scope="col" class="px-6 py-4">Tanlangan fan</th>
+                        <th scope="col" class="px-6 py-4">Sinf</th>
+                        <th scope="col" class="px-6 py-4">Savollar soni</th>
+                        <th scope="col" class="px-6 py-4">Qiyinchilik darajasi</th>
+                        <th scope="col" class="px-6 py-4">Ball</th>
+                     </tr>
+                     <tr
+                        class="border-b border-border hover:bg-gray-100 dark:hover:bg-black transition-all duration-300 text-center"
                      >
-                        {{ item.name }}
-                     </SelectItem>
-                  </SelectGroup>
-               </SelectContent>
-            </Select>
-         </div>
-      </div>
-      <div class="mt-6">
-         <div class="relative overflow-x-auto my-6">
-            <table class="w-full text-sm text-left rtl:text-right">
-               <tbody>
-                  <tr class="bg-primary text-white">
-                     <th scope="col" class="px-6 py-4">#</th>
-                     <th scope="col" class="px-6 py-4">Tanlangan fan</th>
-                     <th scope="col" class="px-6 py-4">Sinf</th>
-                     <th scope="col" class="px-6 py-4">Savollar soni</th>
-                     <th scope="col" class="px-6 py-4">Qiyinchilik darajasi</th>
-                     <th scope="col" class="px-6 py-4">Ball</th>
-                  </tr>
-                  <tr class="border-b border-border hover:bg-gray-100 dark:hover:bg-black transition-all duration-300">
-                     <td class="px-6 py-4">1</td>
-                     <td class="px-6 py-4">Ona tili</td>
-                     <td class="px-6 py-4">10</td>
-                     <td class="px-6 py-4">30</td>
-                     <td class="px-6 py-4">Oson</td>
-                     <td class="px-6 py-4">1</td>
-                  </tr>
+                        <td class="px-6 py-4">1</td>
+                        <td class="px-6 py-4">Ona tili</td>
+                        <td class="px-6 py-4">10</td>
+                        <td class="px-6 py-4">30</td>
+                        <td class="px-6 py-4">Oson</td>
+                        <td class="px-6 py-4">1</td>
+                     </tr>
 
-                  <tr
-                     class="text-white"
-                     style="background: linear-gradient(rgb(68, 137, 247) 0%, rgb(0, 78, 203) 100%)"
-                  >
-                     <th colspan="3" class="px-6 py-4 text-center">Umumiy ball</th>
-                     <th colspan="3" class="px-6 py-4 text-center">30</th>
-                  </tr>
-               </tbody>
-            </table>
+                     <tr
+                        class="text-white text-center"
+                        style="background: linear-gradient(rgb(68, 137, 247) 0%, rgb(0, 78, 203) 100%)"
+                     >
+                        <th colspan="3" class="px-6 py-4">Umumiy ball</th>
+                        <th colspan="3" class="px-6 py-4">30</th>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
          </div>
+         <div class="flex justify-center mt-6"><Button size="lg" @click="startSchoolTest">Testni boshlash</Button></div>
       </div>
-      <div class="flex justify-center mt-6"><Button size="lg">Testni boshlash</Button></div>
    </div>
 </template>

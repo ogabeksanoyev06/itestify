@@ -1,5 +1,6 @@
 import { computed } from 'vue';
 import { useMouseInElement } from '@vueuse/core';
+import { useThemeStore } from '@/stores/theme.js';
 
 function lerp(start, end, factor) {
    return start * (1 - factor) + end * factor;
@@ -7,7 +8,7 @@ function lerp(start, end, factor) {
 
 export function useNuxtHoverEffect(target) {
    const { elementX, elementY, isOutside, elementHeight, elementWidth } = useMouseInElement(target);
-   // const theme = useThemeStore();
+   const theme = useThemeStore();
    const nuxtHoverEffect = computed(() => {
       //calculate center
       let centerX = elementWidth.value / 2;
@@ -24,8 +25,8 @@ export function useNuxtHoverEffect(target) {
       let opacity = lerp(1, 0, vectorLength / 600);
 
       //colors
-      let solid_color = true ? 'rgba(57,181,74,1)' : 'rgba(30,83,219,1)';
-      let highlight = true
+      let solid_color = !theme.isDark ? 'rgba(57,181,74,1)' : 'rgba(30,83,219,1)';
+      let highlight = !theme.isDark
          ? `linear-gradient(${deg}deg, rgba(57, 181, 74,${opacity}), rgba(57, 181, 74,0) 20%)`
          : `linear-gradient(${deg}deg, rgba(30, 83, 219,${opacity}), rgba(30,83,219,0) 20%)`;
       return isOutside.value ? highlight : solid_color;

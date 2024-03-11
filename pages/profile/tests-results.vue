@@ -1,3 +1,43 @@
+<script setup>
+definePageMeta({
+   layout: 'cabinet'
+});
+
+import { useRouter } from 'vue-router';
+import { testService } from '~/services/testService';
+
+const router = useRouter();
+
+const loading = ref(false);
+
+const testHistory = ref([]);
+
+async function getHistortTest() {
+   loading.value = true;
+   try {
+      const response = await testService.testHistory();
+      testHistory.value = response;
+   } catch (error) {
+      $toast.error(error.response.data.message);
+   } finally {
+      loading.value = false;
+   }
+}
+
+const goToLink = (index, type) => {
+   router.push({
+      path: `/attempt/answer/${index}`,
+      query: {
+         type: type
+      }
+   });
+};
+
+onMounted(() => {
+   getHistortTest();
+});
+</script>
+
 <template>
    <div>
       <div class="flex flex-col text-center gap-2 mb-8">
@@ -18,7 +58,7 @@
             <tbody>
                <tr
                   class="bg-white border-b hover:bg-gray-100 transition-all duration-300 text-center"
-                  v-for="(item, i) in 6"
+                  v-for="(item, i) in testHistory"
                   :key="item"
                >
                   <td class="p-4 font-semibold">
@@ -26,12 +66,12 @@
                   </td>
                   <td class="p-4">18.11.2023 10:19 - 11:15</td>
 
-                  <td class="p-4">DTM</td>
+                  <td class="p-4">{{ item.type }}</td>
                   <td class="p-4">70.7</td>
                   <td class="p-4">
                      <span
                         class="flex items-center justify-center gap-1 cursor-pointer text-primary-700 hover:text-primary-800 transition-all"
-                        @click="goToLink(i)"
+                        @click="goToLink(item.id, item.type)"
                      >
                         Ko'rish
                         <svg
@@ -60,9 +100,6 @@
                      </span>
                   </td>
                </tr>
-               <tr class="bg-white border-b hover:bg-gray-100 transition-all duration-300">
-                  <td class="p-4 text-center font-semibold" colspan="5">Ma'lumot topilmadi</td>
-               </tr>
             </tbody>
          </table>
       </div>
@@ -87,19 +124,3 @@
       </div>
    </div>
 </template>
-
-<script setup>
-definePageMeta({
-   layout: 'cabinet'
-});
-
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const goToLink = (index) => {
-   router.push({ path: `/attempt/rating/${index}` });
-};
-</script>
-
-<style lang="scss" scoped></style>
