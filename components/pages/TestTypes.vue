@@ -25,15 +25,9 @@ onMounted(() => {
    <div class="py-8 mt-6">
       <div class="container">
          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div
-               v-for="(item, index) in testTypes"
-               :key="index"
-               data-aos="fade-up"
-               :data-aos-duration="(index + 1) * 100"
-               class="min-h-[100px]"
-            >
+            <div v-for="(item, index) in testTypes" :key="index" data-aos="fade-up" :data-aos-duration="(index + 1) * 100">
                <div
-                  class="rounded-xl border border-border bg-card text-card-foreground shadow h-full cursor-pointer hover:shadow-none transition-all duration-300"
+                  class="rounded-xl border border-border bg-card text-card-foreground shadow min-h-[200px] h-full cursor-pointer hover:shadow-none transition-all duration-300"
                >
                   <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-if="loading">
                      <div class="pointer-events-none">
@@ -50,10 +44,7 @@ onMounted(() => {
                   <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-else>
                      <div class="pointer-events-none">
                         <span class="flex-shrink-0">
-                           <img
-                              src="https://cdn.commeta.uz/100x/https://cdn.commeta.uz/media/media/Group_MVewrf7.svg"
-                              class="w-8 h-8"
-                           />
+                           <img src="https://cdn.commeta.uz/100x/https://cdn.commeta.uz/media/media/Group_MVewrf7.svg" class="w-8 h-8" />
                         </span>
                      </div>
                      <div class="flex flex-col space-y-2">

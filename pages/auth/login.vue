@@ -3,15 +3,7 @@ import { useRouter } from 'vue-router';
 import { authService } from '~/services/authService';
 import { access_token, refresh_token } from '~/services/tokenService';
 import { Input } from '@/components/ui/input';
-import {
-   Dialog,
-   DialogContent,
-   DialogDescription,
-   DialogFooter,
-   DialogHeader,
-   DialogTitle,
-   DialogTrigger
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 definePageMeta({ layout: 'auth' });
 
@@ -43,6 +35,12 @@ async function loginToSystem() {
 
       access_token.value = response.access;
       refresh_token.value = response.refresh;
+
+      // const accessTokenCookie = useCookie('access_token', { sameSite: 'strict' });
+      // const refreshTokenCookie = useCookie('refresh_token', { sameSite: 'strict' });
+
+      // accessTokenCookie.value = response.access;
+      // refreshTokenCookie.value = response.refresh;
       router.push({ path: '/' });
       $toast.success('Tizimga muvaffaqiyatli kirdingiz!');
    } catch (error) {
@@ -91,12 +89,7 @@ async function resetPassword() {
                   </VField>
                </div>
                <div class="flex flex-col">
-                  <VField
-                     name="password"
-                     rules="required|passwordformat|max:8|min:8"
-                     v-model="form.password"
-                     v-slot="{ errors }"
-                  >
+                  <VField name="password" rules="required|passwordformat|max:8|min:8" v-model="form.password" v-slot="{ errors }">
                      <Label for="password" class="text-xs font-medium">Parol</Label>
                      <div class="relative">
                         <Input
@@ -107,9 +100,7 @@ async function resetPassword() {
                            class="pr-8"
                            :class="errors.length > 0 ? 'focus-visible:border-red-600 border-red-600' : ''"
                         />
-                        <span
-                           class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer"
-                        >
+                        <span class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer">
                            <svg
                               width="14"
                               height="14"
@@ -170,12 +161,7 @@ async function resetPassword() {
                      <form @submit.prevent="handleSubmit(resetPassword)">
                         <div class="flex flex-col space-y-4">
                            <div class="flex flex-col">
-                              <VField
-                                 name="username"
-                                 rules="required|max:60|min:3"
-                                 v-model="resetForm.username"
-                                 v-slot="{ errors }"
-                              >
+                              <VField name="username" rules="required|max:60|min:3" v-model="resetForm.username" v-slot="{ errors }">
                                  <Label for="username">Foydalanuvchi nomi</Label>
                                  <Input
                                     id="username"
@@ -188,12 +174,7 @@ async function resetPassword() {
                               </VField>
                            </div>
                            <div class="flex flex-col">
-                              <VField
-                                 name="password"
-                                 rules="required|passwordformat|min:8|max:12"
-                                 v-model="resetForm.password"
-                                 v-slot="{ errors }"
-                              >
+                              <VField name="password" rules="required|passwordformat|min:8|max:12" v-model="resetForm.password" v-slot="{ errors }">
                                  <Label for="password">Yangi parol</Label>
                                  <div class="relative">
                                     <Input
@@ -204,9 +185,7 @@ async function resetPassword() {
                                        class="pr-8"
                                        :class="errors.length > 0 ? 'focus-visible:border-red-600 border-red-600' : ''"
                                     />
-                                    <span
-                                       class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer"
-                                    >
+                                    <span class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer">
                                        <svg
                                           width="14"
                                           height="14"

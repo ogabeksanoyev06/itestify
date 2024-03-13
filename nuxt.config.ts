@@ -15,6 +15,9 @@ export default defineNuxtConfig({
          src: '~/plugins/aos',
          mode: 'client',
          ssr: false
+      },
+      {
+         src: '~/plugins/api.js'
       }
    ],
    shadcn: {

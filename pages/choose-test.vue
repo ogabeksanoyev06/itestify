@@ -5,8 +5,6 @@ import { test } from '~/constants/test';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-
-
 const router = useRouter();
 
 const { $toast } = useNuxtApp();
@@ -33,7 +31,7 @@ async function buyExams(test_id) {
          test_type: test_id
       });
       if (response.code === 200) {
-         $toast.success(response.data.message);
+         $toast.success(response.message);
          getTestTypes();
       }
    } catch (error) {
@@ -82,9 +80,7 @@ onMounted(() => {
    <section class="py-8">
       <div class="container">
          <div class="flex flex-col justify-center sm:justify-start space-y-4">
-            <h1 class="text-center sm:text-left text-2xl font-semibold sm:text-3xl">
-               Abiturientlar va o'quvchilar uchun test topshirish tizimi
-            </h1>
+            <h1 class="text-center sm:text-left text-2xl font-semibold sm:text-3xl">Abiturientlar va o'quvchilar uchun test topshirish tizimi</h1>
             <p class="text-center sm:text-left text-sm text-muted-foreground sm:text-base">
                DTM talablari asosida tuzilgan 40 000 ta test savollaridan foydalangan holda test topshirish imkoni
             </p>
@@ -98,7 +94,6 @@ onMounted(() => {
                      <div class="flex flex-col gap-2">
                         <img
                            src="/assets/images/icon.jpg"
-                           alt=""
                            class="w-10 h-10 group-hover:scale-105 transition-transform duration-500 mt-1 sm:mt-0 mb-2"
                         />
 
@@ -110,16 +105,9 @@ onMounted(() => {
                         </p>
                      </div>
                      <div class="flex items-center justify-center flex-col sm:flex-row sm:justify-between mt-auto">
-                        <Button v-if="item.bought" class="w-full sm:w-auto" @click="selectedTestType(item.name)">
-                           Testni boshlash
-                        </Button>
+                        <Button v-if="item.bought" class="w-full sm:w-auto" @click="selectedTestType(item.name)"> Testni boshlash </Button>
 
-                        <Button
-                           v-if="!item.bought"
-                           variant="outline"
-                           class="w-full sm:w-auto"
-                           @click="buyExams(item.id)"
-                        >
+                        <Button v-if="!item.bought" variant="outline" class="w-full sm:w-auto" @click="buyExams(item.id)">
                            Testni sotib olish
                         </Button>
                         <Button variant="outline" class="w-full sm:w-auto">Hisobni to'ldirish</Button>

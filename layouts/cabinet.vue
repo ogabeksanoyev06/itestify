@@ -3,7 +3,7 @@
       <AppHeader />
       <main class="min-h-[calc(100vh-64px)] py-8">
          <div class="container">
-            <div class="bg-white pt-3 px-3 sm:pt-6 sm:px-6 rounded-2xl shadow-[rgba(0,0,0,0.16)_0px_1px_4px] mb-8">
+            <div class="bg-card pt-3 px-3 sm:pt-6 sm:px-6 rounded-2xl shadow-[rgba(0,0,0,0.16)_0px_1px_4px] mb-8">
                <div
                   class="flex justify-between items-center flex-wrap gap-5 bg-[url(https://www.fozilov.uz/assets/Light.png)] bg-[length:200px_200px]"
                >
@@ -35,24 +35,21 @@
                      </p>
                   </div>
                </div>
-               <nav class="border-t mt-5">
+               <nav class="border-t border-border mt-5">
                   <div class="relative overflow-hidden py-2">
                      <div class="flex gap-6 overflow-y-auto mini-x-scroll">
                         <button
-                           class="!pt-2 text-gray-700 py-2 rounded-sm transition-all hover:text-gray-900 leading-130 text-sm font-medium z-10 flex items-center gap-1 shrink-0"
+                           class="!pt-2 text-foreground/90 py-2 rounded-sm transition-all hover:text-foreground leading-130 text-sm font-medium z-10 flex items-center gap-1 shrink-0"
                            v-for="(item, i) in menu"
                            :key="i"
                            :id="i + 1"
                            @click="highlightButton(i + 1), goToLink(item.name)"
-                           :class="{ '!text-black font-semibold': currentRoute === item.name }"
+                           :class="{ '!text-foreground font-semibold': currentRoute === item.name }"
                         >
                            {{ item.title }}
                         </button>
                      </div>
-                     <div
-                        ref="highlighter"
-                        class="absolute h-[2px] bg-primary left-0 bottom-0 rounded-t-md transition-all duration-500"
-                     />
+                     <div ref="highlighter" class="absolute h-[2px] bg-primary left-0 bottom-0 rounded-t-md transition-all duration-500" />
                   </div>
                </nav>
             </div>

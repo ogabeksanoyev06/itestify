@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onUpdated, onMounted, watch } from 'vue';
 import { profileService } from '~/services/profileService';
 import { commonService } from '~/services/commonService';
 import { format } from 'date-fns';
@@ -24,20 +25,7 @@ const schools = ref({
    options: []
 });
 
-const user = ref({
-   username: '',
-   first_name: '',
-   last_name: '',
-   father_name: '',
-   birth_date: '',
-   district: '',
-   school: null,
-   type: 'applicant',
-   region: '',
-   balance: '',
-   phone: '',
-   email: null
-});
+const user = ref({});
 
 const usertype = ref([
    {
@@ -65,18 +53,18 @@ async function getRegions() {
    }
 }
 
-async function getDistricts(regionId) {
+async function getDistricts() {
    try {
-      const response = await commonService.districts(regionId);
+      const response = await commonService.districts(user.value.region);
       districts.value.options = response;
    } catch (error) {
       console.error('Error fetching districts:', error);
    }
 }
 
-async function getSchools(districtId) {
+async function getSchools() {
    try {
-      const response = await commonService.schools(districtId);
+      const response = await commonService.schools(user.value.district);
       schools.value.options = response;
    } catch (error) {
       console.error('Error fetching schools:', error);
@@ -89,10 +77,9 @@ async function getUser() {
       const response = await profileService.user();
       user.value = response;
       user.value.phone = response?.phone?.slice(3);
-      user.value.region = response.region?.id?.toString();
-      user.value.district = response.district?.id?.toString();
-      user.value.school = response.school?.id?.toString();
-      schools.value.id = response.school?.id?.toString();
+      user.value.region = response.region.id.toString();
+      user.value.district = response.district.id.toString();
+      user.value.school = response.school.id.toString();
    } catch (error) {
       console.error(error);
    } finally {
@@ -106,54 +93,78 @@ async function updateProfile() {
    form.append('username', user.value.username);
    form.append('first_name', user.value.first_name);
    form.append('last_name', user.value.last_name);
-   form.append('father_name', user.value.father_name);
-   form.append('email', user.value.email);
-   form.append('district', user.value.district);
-   form.append('school', user.value.school);
-   form.append('type', user.value.type);
    form.append('phone', '998' + user.value.phone);
+   if (user.value.father_name !== null) {
+      form.append('father_name', user.value.father_name);
+   }
+   if (user.value.birth_date !== null) {
+      form.append('birth_date', user.value.birth_date);
+   }
+   if (user.value.email !== null) {
+      form.append('email', user.value.email);
+   }
+   if (user.value.district !== null) {
+      form.append('district', user.value.district);
+   }
+   if (user.value.school !== null) {
+      form.append('school', user.value.school);
+   }
+   if (user.value.photo !== null) {
+      form.append('photo', user.value.photo);
+   }
+   form.append('type', user.value.type);
    try {
       const res = await profileService.updateProfile(form);
       user.value = res;
       getUser();
       $toast.success('Profile muvaffaqiyatli o\`zgartirildi');
    } catch (error) {
-      $toast.error('Xatolik yuz berdi', error);
+      if (error.response && error.response.data) {
+         const errorData = error.response.data;
+         Object.keys(errorData).forEach((key) => {
+            const errorMessage = `${key}: ${errorData[key].join(', ')}`;
+            $toast.error(errorMessage);
+         });
+      } else if (error.message) {
+         $toast.error(error.message);
+      } else {
+         $toast.error("Aniq xatolik haqida ma'lumot yo'q");
+      }
    } finally {
       loading.value = false;
    }
 }
 
-watch(
-   () => user.region,
-   (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-         getDistricts(newValue);
-      }
-   }
-);
-
-watch(
-   () => user.district,
-   (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-         getSchools(newValue);
-      }
-   }
-);
-
 onMounted(() => {
    getUser();
    getRegions();
 });
+
+watch(
+   () => user.value.region,
+   (newValue, oldValue) => {
+      if (newValue !== undefined && newValue !== null && newValue !== oldValue) {
+         getDistricts();
+      }
+   }
+);
+
+watch(
+   () => user.value.district,
+   (newValue, oldValue) => {
+      if (newValue !== undefined && newValue !== null && newValue !== oldValue) {
+         getSchools();
+      }
+   }
+);
+
+onUpdated(() => {});
 </script>
 
 <template>
    <div>
       <h4 class="text-base sm:text-xl font-semibold mb-4">Asosiy malumotlar</h4>
-
       <VForm v-slot="{ handleSubmit }">
-         {{ districts.id }}
          <form @submit.prevent="handleSubmit(updateProfile)">
             <div>
                <div class="grid gap-3 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
@@ -171,12 +182,7 @@ onMounted(() => {
                      </VField>
                   </div>
                   <div class="flex flex-col">
-                     <VField
-                        name="first_name"
-                        rules="required|max:60|min:3"
-                        v-model="user.first_name"
-                        v-slot="{ errors }"
-                     >
+                     <VField name="first_name" rules="required|max:60|min:3" v-model="user.first_name" v-slot="{ errors }">
                         <Label for="first_name">Ism</Label>
                         <Input
                            id="first_name"
@@ -189,12 +195,7 @@ onMounted(() => {
                      </VField>
                   </div>
                   <div class="flex flex-col">
-                     <VField
-                        name="last_name"
-                        rules="required|max:60|min:3"
-                        v-model="user.last_name"
-                        v-slot="{ errors }"
-                     >
+                     <VField name="last_name" rules="required|max:60|min:3" v-model="user.last_name" v-slot="{ errors }">
                         <Label for="last_name">Familiya</Label>
                         <Input
                            id="last_name"
@@ -219,7 +220,6 @@ onMounted(() => {
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-
                   <div class="flex flex-col">
                      <VField name="email" rules="email" v-model="user.email" v-slot="{ errors }">
                         <Label for="email">Email</Label>
@@ -245,11 +245,7 @@ onMounted(() => {
                               class="pl-12"
                               :class="errors.length > 0 ? 'focus-visible:border-red-600 border-red-600' : ''"
                            />
-                           <span
-                              class="absolute top-1/2 -translate-y-1/2 start-0 flex items-center justify-center px-3"
-                           >
-                              998
-                           </span>
+                           <span class="absolute top-1/2 -translate-y-1/2 start-0 flex items-center justify-center px-3"> 998 </span>
                         </div>
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
@@ -273,7 +269,6 @@ onMounted(() => {
                      </VField>
                   </div>
                   <div class="flex flex-col">
-                     {{ user.region }}
                      <VField name="region">
                         <Label for="region">Viloyatni tanlang</Label>
                         <Select v-model="user.region">
@@ -283,11 +278,7 @@ onMounted(() => {
                            <SelectContent>
                               <SelectGroup>
                                  <SelectLabel>Tanlang</SelectLabel>
-                                 <SelectItem
-                                    v-for="(region, i) in regions.options"
-                                    :key="i + 2"
-                                    :value="region.id.toString()"
-                                 >
+                                 <SelectItem v-for="(region, i) in regions.options" :key="i + 2" :value="region.id.toString()">
                                     {{ region.name }}
                                  </SelectItem>
                               </SelectGroup>
@@ -306,11 +297,7 @@ onMounted(() => {
                            <SelectContent>
                               <SelectGroup>
                                  <SelectLabel>Tanlang</SelectLabel>
-                                 <SelectItem
-                                    v-for="district in districts.options"
-                                    :key="district.id"
-                                    :value="district.id.toString()"
-                                 >
+                                 <SelectItem v-for="district in districts.options" :key="district.id" :value="district.id.toString()">
                                     {{ district.name }}
                                  </SelectItem>
                               </SelectGroup>
@@ -328,11 +315,7 @@ onMounted(() => {
                            <SelectContent>
                               <SelectGroup>
                                  <SelectLabel>Tanlang</SelectLabel>
-                                 <SelectItem
-                                    v-for="school in schools.options"
-                                    :key="school.id"
-                                    :value="school.id.toString()"
-                                 >
+                                 <SelectItem v-for="school in schools.options" :key="school.id" :value="school.id.toString()">
                                     {{ school.name }}
                                  </SelectItem>
                               </SelectGroup>
@@ -341,7 +324,19 @@ onMounted(() => {
                      </VField>
                   </div>
                </div>
-               <Button type="submit" class="w-full sm:w-auto">Saqlash</Button>
+               <Button type="submit" class="w-full sm:w-auto" :disabled="loading">
+                  <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="mr-2 h-4 w-4 animate-spin" v-if="loading">
+                     <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                     ></path>
+                  </svg>
+                  Saqlash
+               </Button>
             </div>
          </form>
       </VForm>
