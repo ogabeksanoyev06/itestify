@@ -33,7 +33,7 @@ onMounted(() => {
                   <td class="px-6 py-4 font-medium">{{ index + 1 }}</td>
                   <td class="px-6 py-4 font-medium">{{ item.payment_system }}</td>
                   <td class="px-6 py-4 font-medium">{{ currencyFormat(item.amount) }} so'm</td>
-                  <td class="px-6 py-4 font-medium">{{ item.date }}</td>
+                  <td class="px-6 py-4 font-medium">{{ dayjs(item.date).format('DD-MM-YYYY HH:mm:ss') }}</td>
                   <td class="px-6 py-4 font-medium">
                      <span class="text-primary" v-if="item.completed">To'langan</span>
                      <span class="text-red-600" v-else>To'lanmagan</span>

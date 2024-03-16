@@ -21,12 +21,11 @@ export default defineNuxtConfig({
          ssr: false
       }
    ],
+   build: {
+      transpile: ['vue-sonner']
+   },
    shadcn: {
       prefix: '',
-      /**
-       * Directory that the component lives in.
-       * @default "./components/ui"
-       */
       componentDir: './components/ui'
    },
    colorMode: {
@@ -38,8 +37,5 @@ export default defineNuxtConfig({
       classPrefix: '',
       classSuffix: '',
       storageKey: 'nuxt-color-mode'
-   },
-   build: {
-      transpile: ['vue-sonner']
    }
 });
