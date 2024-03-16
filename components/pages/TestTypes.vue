@@ -1,21 +1,6 @@
 <script setup>
-import { testService } from '~/services/testService';
+const { testTypes, getTestTypes } = useTests();
 
-const loading = ref(false);
-
-const testTypes = ref([{}, {}, {}]);
-
-async function getTestTypes() {
-   loading.value = true;
-   try {
-      const response = await testService.testTypes();
-      testTypes.value = response;
-   } catch (error) {
-      console.log(error);
-   } finally {
-      loading.value = false;
-   }
-}
 onMounted(() => {
    getTestTypes();
 });
@@ -29,19 +14,7 @@ onMounted(() => {
                <div
                   class="rounded-xl border border-border bg-card text-card-foreground shadow min-h-[200px] h-full cursor-pointer hover:shadow-none transition-all duration-300"
                >
-                  <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-if="loading">
-                     <div class="pointer-events-none">
-                        <span class="flex-shrink-0">
-                           <Skeleton class="h-12 w-12 rounded-full" />
-                        </span>
-                     </div>
-                     <div class="flex flex-col space-y-2">
-                        <Skeleton class="h-4 w-[200px]" />
-                        <Skeleton class="h-4 w-[250px]" />
-                        <Skeleton class="h-4 w-[250px]" />
-                     </div>
-                  </div>
-                  <div class="flex flex-col justify-center h-full gap-y-2 p-6" v-else>
+                  <div class="flex flex-col justify-center h-full gap-y-2 p-6">
                      <div class="pointer-events-none">
                         <span class="flex-shrink-0">
                            <img src="https://cdn.commeta.uz/100x/https://cdn.commeta.uz/media/media/Group_MVewrf7.svg" class="w-8 h-8" />

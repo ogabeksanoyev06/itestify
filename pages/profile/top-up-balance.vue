@@ -13,25 +13,20 @@
 
       <div class="flex flex-col gap-5 max-w-[450px] border rounded-lg p-5 mt-5">
          <p class="text-sm text-gray-500">
-            Hisobni to'ldirish uchun kerakli miqdorni kiriting va to'lovni amalga oshirish tugmasini bosing. Minimal
-            to'lov - 1000 so'm
+            Hisobni to'ldirish uchun kerakli miqdorni kiriting va to'lovni amalga oshirish tugmasini bosing. Minimal to'lov - 1000 so'm
          </p>
          <Input v-model="paymentAmount" placeholder="10 000" @keypress="isNumber($event)" />
-         <Button :disabled="paymentAmount <= 9999 || paymentAmount === null" @click="createPayment">
-            Hisobni to'ldirish
-         </Button>
+         <Button :disabled="paymentAmount <= 9999 || paymentAmount === null" @click="createPayment(paymentAmount)"> Hisobni to'ldirish </Button>
       </div>
    </div>
 </template>
 
 <script setup>
-import { paymentService } from '~/services/paymentService';
-
 definePageMeta({
    layout: 'cabinet'
 });
 
-const { $toast } = useNuxtApp();
+const { createPayment } = usePayment();
 
 const selectedPaymentType = ref(1);
 
@@ -49,15 +44,6 @@ const isNumber = (evt) => {
       return true;
    }
 };
-
-async function createPayment() {
-   try {
-      const response = await paymentService.fillUserBalance(paymentAmount.value);
-      window.open(response.result.link);
-   } catch (error) {
-      console.error('Error', error);
-   }
-}
 </script>
 
 <style lang="scss" scoped></style>

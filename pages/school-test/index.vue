@@ -1,15 +1,8 @@
 <script setup>
-import { testService } from '~/services/testService';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 
-const { $toast } = useNuxtApp();
-
-const loading = ref(false);
-
-const sciences = ref([]);
-
-const classes = ref([]);
+const { sciences, classes, getSciences, getClasses, startSchoolTest, loading } = useTests();
 
 const questionsCount = ref(5);
 
@@ -68,48 +61,14 @@ function selectedScience(id) {
    activeScience.value = id;
 }
 
-async function getSciences() {
-   loading.value = true;
-   try {
-      const response = await testService.sciences();
-      sciences.value = response;
-   } catch (error) {
-      console.error('Error fetching user:', error);
-   } finally {
-      loading.value = false;
-   }
-}
-
-async function getClasses() {
-   try {
-      const response = await testService.classes();
-      classes.value = response;
-   } catch (error) {
-      console.error('Error fetching user:', error);
-   } finally {
-   }
-}
-
-async function startSchoolTest() {
-   loading.value = true;
-   let paramtersModel = {};
-   paramtersModel.science_id = activeScience.value;
-   paramtersModel.class_id = selectedClass.value;
-   paramtersModel.test_score = selectedLevel.value;
-   paramtersModel.test_count = questionsCount.value;
-
-   try {
-      const response = await testService.schoolTest(paramtersModel);
-      if (parseInt(response.code) === 500) {
-         $toast.error(response.message);
-      } else {
-         router.push({ path: '/test' });
-      }
-   } catch (error) {
-      $toast.error(error.response.data.message);
-   } finally {
-      loading.value = false;
-   }
+function startTest() {
+   const paramtersModel = {
+      science_id: activeScience.value,
+      class_id: selectedClass.value,
+      test_score: selectedLevel.value,
+      test_count: questionsCount.value
+   };
+   startSchoolTest(paramtersModel);
 }
 
 onMounted(() => {
@@ -173,7 +132,11 @@ onMounted(() => {
                </Select>
             </div>
          </div>
-         <div class="flex justify-center mt-6"><Button size="lg" @click="startSchoolTest">Testni boshlash</Button></div>
+         <div class="flex justify-center mt-12">
+            <Button size="lg" :disabled="!activeScience || !selectedClass || !selectedLevel || !questionsCount" @click="startTest">
+               Testni boshlash
+            </Button>
+         </div>
       </div>
    </div>
 </template>

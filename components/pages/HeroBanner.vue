@@ -5,11 +5,6 @@ import { Button } from '@/components/ui/button';
 <template>
    <div class="container">
       <div class="min-h-[calc(100vh-56px)] flex items-center py-4 relative">
-         <!-- <img
-            class="absolute right-0 -translate-y-6 kite-yellow top-[0px]"
-            src="https://cdn.commeta.uz/static/review/static/front/svg/spring/kite-yellow-mobile.svg"
-            alt=""
-         /> -->
          <div class="grid grid-cols-1 gap-12 xl:grid-cols-2 items-center">
             <div class="flex flex-col space-y-6">
                <div class="flex justify-center xl:justify-start">
@@ -38,13 +33,9 @@ import { Button } from '@/components/ui/button';
                   </Button>
                </div>
                <h1 class="text-4xl font-bold text-center sm:text-5xl md:text-6xl lg:text-6xl xl:text-left relative">
-                  <span
-                     style="display: inline-block; vertical-align: top; text-decoration: inherit; text-wrap: balance"
-                  >
+                  <span style="display: inline-block; vertical-align: top; text-decoration: inherit; text-wrap: balance">
                      iTestify orqali bilimingizni
-                     <span class="relative text-transparent bg-gradient-to-r from-green-500 to-sky-500/90 bg-clip-text"
-                        >tez va oson</span
-                     >
+                     <span class="relative text-transparent bg-gradient-to-r from-green-500 to-sky-500/90 bg-clip-text">tez va oson</span>
                      oshiring.
                   </span>
                   <img
@@ -54,9 +45,8 @@ import { Button } from '@/components/ui/button';
                   />
                </h1>
                <p class="leading-normal text-center text-muted-foreground sm:text-base sm:leading-6 xl:text-left">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio id repudiandae accusantium quidem porro
-                  deleniti placeat, consequuntur recusandae corporis in non possimus inventore eum et consectetur ipsam
-                  tempora culpa. Dolorum.
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio id repudiandae accusantium quidem porro deleniti placeat, consequuntur
+                  recusandae corporis in non possimus inventore eum et consectetur ipsam tempora culpa. Dolorum.
                </p>
                <div class="flex justify-center space-x-2 md:space-x-4 xl:justify-start">
                   <nuxt-link to="/choose-test"><Button variant="outline">Test yechish</Button></nuxt-link>
@@ -66,28 +56,16 @@ import { Button } from '@/components/ui/button';
             </div>
             <div class="grid grid-cols-5 grid-rows-5 gap-3">
                <div class="col-span-2 row-span-5 overflow-hidden rounded">
-                  <img
-                     class="object-cover w-full h-full transition-all ease-linear hover:scale-110"
-                     src="/assets/images/1.jpg"
-                  />
+                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/1.jpg" />
                </div>
                <div class="col-span-3 col-start-3 row-span-3 row-start-3 overflow-hidden rounded">
-                  <img
-                     class="object-cover w-full h-full transition-all ease-linear hover:scale-110"
-                     src="/assets/images/2.jpg"
-                  />
+                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/2.jpg" />
                </div>
                <div class="col-span-2 col-start-3 row-span-2 row-start-1 overflow-hidden rounded">
-                  <img
-                     class="object-cover w-full h-full transition-all ease-linear hover:scale-110"
-                     src="/assets/images/4.jpg"
-                  />
+                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/4.jpg" />
                </div>
                <div class="col-start-5 row-span-2 row-start-1 overflow-hidden rounded">
-                  <img
-                     class="object-cover w-full h-full transition-all ease-linear hover:scale-110"
-                     src="/assets/images/3.jpg"
-                  />
+                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/3.jpg" />
                </div>
             </div>
          </div>
@@ -96,6 +74,13 @@ import { Button } from '@/components/ui/button';
 </template>
 
 <style scoped>
+.hero-particles {
+   background:
+      linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 10%, rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0) 100%),
+      url('https://loading.io/assets/img/c/bg/ball-wed.svg') center center/cover,
+      #fefef2;
+}
+
 .kite-blue {
    animation: fly-blue 4s ease-in-out infinite;
 }

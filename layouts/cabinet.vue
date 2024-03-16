@@ -21,7 +21,7 @@
                         <h2 class="text-primary-800 text-base sm:text-xl font-semibold">
                            {{ user.username }}
                         </h2>
-                        <p class="text-gray text-base font-medium">{{ phoneFormat(user.phone) }}</p>
+                        <p class="text-gray text-base font-medium">{{ phoneFormat('998' + user.phone) }}</p>
                      </div>
                   </div>
                   <div>
@@ -61,9 +61,7 @@
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
-import { profileService } from '~/services/profileService';
 import AppHeader from '~/components/layouts/default/header/AppHeader.vue';
-import { phoneFormat, currencyFormat } from '~/utils/format';
 
 const router = useRouter();
 const route = useRoute();
@@ -105,9 +103,7 @@ const usertype = ref([
    }
 ]);
 
-const user = ref({});
-
-const loading = ref(false);
+const { user, userProfile, loading } = useUserProfile();
 
 const highlightButton = (id) => {
    const button = document.getElementById(id);
@@ -139,23 +135,11 @@ const updateActiveButton = () => {
    }
 };
 
-async function getUser() {
-   loading.value = true;
-   try {
-      const response = await profileService.user();
-      user.value = response;
-   } catch (error) {
-      console.error('Error fetching user:', error);
-   } finally {
-      loading.value = false;
-   }
-}
-
 watch(route, updateActiveButton);
 
 onMounted(() => {
    updateActiveButton();
-   getUser();
+   userProfile();
 });
 </script>
 <style>

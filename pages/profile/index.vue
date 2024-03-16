@@ -1,31 +1,11 @@
 <script setup>
 import { ref, onUpdated, onMounted, watch } from 'vue';
-import { profileService } from '~/services/profileService';
-import { commonService } from '~/services/commonService';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-vue-next';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Input } from '~/components/ui/input';
 
 definePageMeta({
    layout: 'cabinet'
 });
-
-const { $toast } = useNuxtApp();
-
-const regions = ref({
-   options: []
-});
-const districts = ref({
-   options: []
-});
-const schools = ref({
-   options: []
-});
-
-const user = ref({});
 
 const usertype = ref([
    {
@@ -42,101 +22,12 @@ const usertype = ref([
    }
 ]);
 
-const loading = ref(false);
+const { regions, districts, schools, getRegions, getDistricts, getSchools } = useCommonData();
 
-async function getRegions() {
-   try {
-      const response = await commonService.regions();
-      regions.value.options = response;
-   } catch (error) {
-      console.error('Error fetching user:', error);
-   }
-}
-
-async function getDistricts() {
-   try {
-      const response = await commonService.districts(user.value.region);
-      districts.value.options = response;
-   } catch (error) {
-      console.error('Error fetching districts:', error);
-   }
-}
-
-async function getSchools() {
-   try {
-      const response = await commonService.schools(user.value.district);
-      schools.value.options = response;
-   } catch (error) {
-      console.error('Error fetching schools:', error);
-   }
-}
-
-async function getUser() {
-   loading.value = true;
-   try {
-      const response = await profileService.user();
-      user.value = response;
-      user.value.phone = response?.phone?.slice(3);
-      user.value.region = response.region.id.toString();
-      user.value.district = response.district.id.toString();
-      user.value.school = response.school.id.toString();
-   } catch (error) {
-      console.error(error);
-   } finally {
-      loading.value = false;
-   }
-}
-
-async function updateProfile() {
-   loading.value = true;
-   let form = new FormData();
-   form.append('username', user.value.username);
-   form.append('first_name', user.value.first_name);
-   form.append('last_name', user.value.last_name);
-   form.append('phone', '998' + user.value.phone);
-   if (user.value.father_name !== null) {
-      form.append('father_name', user.value.father_name);
-   }
-   if (user.value.birth_date !== null) {
-      form.append('birth_date', user.value.birth_date);
-   }
-   if (user.value.email !== null) {
-      form.append('email', user.value.email);
-   }
-   if (user.value.district !== null) {
-      form.append('district', user.value.district);
-   }
-   if (user.value.school !== null) {
-      form.append('school', user.value.school);
-   }
-   if (user.value.photo !== null) {
-      form.append('photo', user.value.photo);
-   }
-   form.append('type', user.value.type);
-   try {
-      const res = await profileService.updateProfile(form);
-      user.value = res;
-      getUser();
-      $toast.success('Profile muvaffaqiyatli o\`zgartirildi');
-   } catch (error) {
-      if (error.response && error.response.data) {
-         const errorData = error.response.data;
-         Object.keys(errorData).forEach((key) => {
-            const errorMessage = `${key}: ${errorData[key].join(', ')}`;
-            $toast.error(errorMessage);
-         });
-      } else if (error.message) {
-         $toast.error(error.message);
-      } else {
-         $toast.error("Aniq xatolik haqida ma'lumot yo'q");
-      }
-   } finally {
-      loading.value = false;
-   }
-}
+const { user, userProfile, updateUserProfile, loading } = useUserProfile();
 
 onMounted(() => {
-   getUser();
+   userProfile();
    getRegions();
 });
 
@@ -144,7 +35,7 @@ watch(
    () => user.value.region,
    (newValue, oldValue) => {
       if (newValue !== undefined && newValue !== null && newValue !== oldValue) {
-         getDistricts();
+         getDistricts(user.value.region);
       }
    }
 );
@@ -153,7 +44,7 @@ watch(
    () => user.value.district,
    (newValue, oldValue) => {
       if (newValue !== undefined && newValue !== null && newValue !== oldValue) {
-         getSchools();
+         getSchools(user.value.district);
       }
    }
 );
@@ -165,7 +56,7 @@ onUpdated(() => {});
    <div>
       <h4 class="text-base sm:text-xl font-semibold mb-4">Asosiy malumotlar</h4>
       <VForm v-slot="{ handleSubmit }">
-         <form @submit.prevent="handleSubmit(updateProfile)">
+         <form @submit.prevent="handleSubmit(updateUserProfile)">
             <div>
                <div class="grid gap-3 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
                   <div class="flex flex-col">
@@ -278,7 +169,7 @@ onUpdated(() => {});
                            <SelectContent>
                               <SelectGroup>
                                  <SelectLabel>Tanlang</SelectLabel>
-                                 <SelectItem v-for="(region, i) in regions.options" :key="i + 2" :value="region.id.toString()">
+                                 <SelectItem v-for="(region, i) in regions" :key="i + 2" :value="region.id">
                                     {{ region.name }}
                                  </SelectItem>
                               </SelectGroup>
@@ -297,7 +188,7 @@ onUpdated(() => {});
                            <SelectContent>
                               <SelectGroup>
                                  <SelectLabel>Tanlang</SelectLabel>
-                                 <SelectItem v-for="district in districts.options" :key="district.id" :value="district.id.toString()">
+                                 <SelectItem v-for="district in districts" :key="district.id" :value="district.id">
                                     {{ district.name }}
                                  </SelectItem>
                               </SelectGroup>
@@ -315,7 +206,7 @@ onUpdated(() => {});
                            <SelectContent>
                               <SelectGroup>
                                  <SelectLabel>Tanlang</SelectLabel>
-                                 <SelectItem v-for="school in schools.options" :key="school.id" :value="school.id.toString()">
+                                 <SelectItem v-for="school in schools" :key="school.id" :value="school.id">
                                     {{ school.name }}
                                  </SelectItem>
                               </SelectGroup>

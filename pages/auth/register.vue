@@ -1,29 +1,14 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { authService } from '~/services/authService';
 
-import {
-   Select,
-   SelectContent,
-   SelectGroup,
-   SelectItem,
-   SelectLabel,
-   SelectTrigger,
-   SelectValue
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 definePageMeta({ layout: 'auth' });
 
-const { $toast } = useNuxtApp();
-
-const router = useRouter();
-
-const loading = ref(false);
+const { register, loading } = useAuth();
 
 const user = ref({
-   type: 'applicant',
    username: '',
    lastname: '',
    firstname: '',
@@ -57,30 +42,9 @@ const passwordSee = () => (passwordField.value = !passwordField.value);
 
 const confirmationSee = () => (passwordConfirmationField.value = !passwordConfirmationField.value);
 
-async function registerToSystem() {
-   try {
-      loading.value = true;
-      const response = await authService.register({
-         phone: '998' + user.value.phone,
-         first_name: user.value.firstname,
-         last_name: user.value.lastname,
-         username: user.value.username,
-         password: user.value.password,
-         type: selectedUserType.value
-      });
-      if (parseInt(response.code) === 201) {
-         router.push({ path: '/auth/login' });
-         $toast.success("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
-      } else {
-         $toast.error("Ro'yxatdan o'tishda xatolik yuz berdi. Iltimos, qayta urinib ko'ring.");
-      }
-   } catch (error) {
-      $toast.error(error.response.data.message);
-      console.log(error.response);
-   } finally {
-      loading.value = false;
-   }
-}
+const registerToSystem = () => {
+   register(user.value, selectedUserType.value);
+};
 </script>
 
 <template>
@@ -121,12 +85,7 @@ async function registerToSystem() {
                </div>
                <div class="grid md:grid-cols-2 space-y-4 md:space-x-2 md:space-y-0">
                   <div class="flex flex-col">
-                     <VField
-                        name="firstName"
-                        rules="required|max:60|min:3"
-                        v-model="user.firstname"
-                        v-slot="{ errors }"
-                     >
+                     <VField name="firstName" rules="required|max:60|min:3" v-model="user.firstname" v-slot="{ errors }">
                         <Label for="firstName">Ism</Label>
                         <Input
                            id="firstName"
@@ -164,21 +123,14 @@ async function registerToSystem() {
                            class="pl-12"
                            :class="errors.length > 0 ? 'focus-visible:border-red-600 border-red-600' : ''"
                         />
-                        <span class="absolute top-1/2 -translate-y-1/2 start-0 flex items-center justify-center px-3">
-                           998
-                        </span>
+                        <span class="absolute top-1/2 -translate-y-1/2 start-0 flex items-center justify-center px-3"> 998 </span>
                      </div>
                      <span class="text-xs text-red-600">{{ errors[0] }}</span>
                   </VField>
                </div>
                <div class="grid md:grid-cols-2 space-y-4 md:space-x-2 md:space-y-0">
                   <div class="flex flex-col">
-                     <VField
-                        name="password"
-                        rules="required|passwordformat|max:8|min:8"
-                        v-model="user.password"
-                        v-slot="{ errors }"
-                     >
+                     <VField name="password" rules="required|passwordformat|max:8|min:8" v-model="user.password" v-slot="{ errors }">
                         <Label for="password">Parol</Label>
                         <div class="relative">
                            <Input
@@ -189,9 +141,7 @@ async function registerToSystem() {
                               class="pr-8"
                               :class="errors.length > 0 ? 'focus-visible:border-red-600 border-red-600' : ''"
                            />
-                           <span
-                              class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer"
-                           >
+                           <span class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer">
                               <svg
                                  width="14"
                                  height="14"
@@ -250,9 +200,7 @@ async function registerToSystem() {
                               class="pr-8"
                               :class="errors.length > 0 ? 'focus-visible:border-red-600 border-red-600' : ''"
                            />
-                           <span
-                              class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer"
-                           >
+                           <span class="absolute top-1/2 -translate-y-1/2 end-0 flex items-center justify-center px-3 cursor-pointer">
                               <svg
                                  width="14"
                                  height="14"

@@ -8,9 +8,7 @@
                >
                   <span class="text-2xl text-primary font-bold group-hover:text-white"> 01 </span>
                   <h4 class="text-2xl font-semibold my-4 group-hover:text-white">Ro'yhatdan o'ting</h4>
-                  <p class="text-sm font-medium group-hover:text-white">
-                     Kirish tugmasini bosib formani to'dirib ro'yhatdan o'ting
-                  </p>
+                  <p class="text-sm font-medium group-hover:text-white">Kirish tugmasini bosib formani to'dirib ro'yhatdan o'ting</p>
                </div>
             </div>
 
@@ -20,9 +18,7 @@
                >
                   <span class="text-2xl text-primary font-bold group-hover:text-white"> 02 </span>
                   <h4 class="text-2xl font-semibold my-4 group-hover:text-white">Balansingizni to'ldiring</h4>
-                  <p class="text-sm font-medium group-hover:text-white">
-                     Pul o'tkazish platformalaridan qulay tarzda pul o'tkazing.
-                  </p>
+                  <p class="text-sm font-medium group-hover:text-white">Pul o'tkazish platformalaridan qulay tarzda pul o'tkazing.</p>
                </div>
             </div>
             <div data-aos="zoom-in">

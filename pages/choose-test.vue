@@ -1,84 +1,51 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { testService } from '~/services/testService';
 import { test } from '~/constants/test';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import PageLoader from '~/components/pages/PageLoader.vue';
 
 const router = useRouter();
 
-const { $toast } = useNuxtApp();
+const { testTypes, loading, boughtLoading, buyExams, getTestTypes } = useTests();
+const { hasActiveTest, getActiveTest } = useActiveTest();
 
-const loading = ref(false);
-
-const testTypes = ref([]);
-
-async function getTestTypes() {
-   loading.value = true;
+const handleTestStart = (testType) => {
    try {
-      const response = await testService.testTypes('test');
-      testTypes.value = response;
-   } catch (error) {
-      console.log(error);
-   } finally {
-      loading.value = false;
-   }
-}
-
-async function buyExams(test_id) {
-   try {
-      const response = await testService.buyExams({
-         test_type: test_id
-      });
-      if (response.code === 200) {
-         $toast.success(response.message);
-         getTestTypes();
+      getActiveTest(testType);
+      if (hasActiveTest.value) {
+         router.push({
+            path: '/test'
+         });
+      } else {
+         switch (testType) {
+            case test.TYPE_ONLINE:
+               router.push('/');
+               break;
+            case test.TYPE_BLOCK:
+               router.push('/block-test');
+               break;
+            case test.TYPE_SCHOOL:
+               router.push('/school-test');
+               break;
+            default:
+               break;
+         }
       }
-   } catch (error) {
-      error.response.data.message.non_field_errors?.forEach((errMsg) => {
-         $toast.error(errMsg);
-      });
-      $toast.error(error.response.data.message);
-   } finally {
-   }
-}
-
-function selectedTestType(testType) {
-   switch (testType) {
-      case test.TYPE_ONLINE:
-         startOnlineTest();
-         break;
-      case test.TYPE_BLOCK:
-         startBlockTest();
-         break;
-      case test.TYPE_SCHOOL:
-         startSchoolTest();
-         break;
-      default:
-         return null;
-   }
-}
-
-function startOnlineTest() {
-   router.push({ path: '/online-test' });
-}
-
-function startBlockTest() {
-   router.push({ path: '/block-test' });
-}
-
-function startSchoolTest() {
-   router.push({ path: '/school-test' });
-}
+   } catch (error) {}
+};
 
 onMounted(() => {
-   getTestTypes();
+   getTestTypes('test');
 });
 </script>
 
 <template>
    <section class="py-8">
-      <div class="container">
+      <PageLoader v-if="loading" />
+      <div class="container" v-else>
+         {{ hasActiveTest }}
+
          <div class="flex flex-col justify-center sm:justify-start space-y-4">
             <h1 class="text-center sm:text-left text-2xl font-semibold sm:text-3xl">Abiturientlar va o'quvchilar uchun test topshirish tizimi</h1>
             <p class="text-center sm:text-left text-sm text-muted-foreground sm:text-base">
@@ -105,12 +72,29 @@ onMounted(() => {
                         </p>
                      </div>
                      <div class="flex items-center justify-center flex-col sm:flex-row sm:justify-between mt-auto">
-                        <Button v-if="item.bought" class="w-full sm:w-auto" @click="selectedTestType(item.name)"> Testni boshlash </Button>
-
-                        <Button v-if="!item.bought" variant="outline" class="w-full sm:w-auto" @click="buyExams(item.id)">
+                        <Button v-if="item.bought" class="w-full sm:w-auto" @click="handleTestStart(item.name)"> Testni boshlash </Button>
+                        <Button
+                           v-if="!item.bought"
+                           variant="outline"
+                           class="w-full sm:w-auto"
+                           @click="buyExams(item.id, 'test')"
+                           :disabled="boughtLoading"
+                        >
+                           <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="mr-2 h-4 w-4 animate-spin" v-if="boughtLoading">
+                              <path
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 stroke-width="2"
+                                 d="M21 12a9 9 0 1 1-6.219-8.56"
+                              ></path>
+                           </svg>
                            Testni sotib olish
                         </Button>
-                        <Button variant="outline" class="w-full sm:w-auto">Hisobni to'ldirish</Button>
+                        <Button variant="outline" class="w-full sm:w-auto" @click="router.push({ path: '/profile/top-up-balance' })">
+                           Hisobni to'ldirish
+                        </Button>
                      </div>
                   </div>
 

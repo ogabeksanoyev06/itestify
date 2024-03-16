@@ -4,25 +4,10 @@ definePageMeta({
 });
 
 import { useRouter } from 'vue-router';
-import { testService } from '~/services/testService';
+
+const { testHistory, getTestHistory, loading } = useTests();
 
 const router = useRouter();
-
-const loading = ref(false);
-
-const testHistory = ref([]);
-
-async function getHistortTest() {
-   loading.value = true;
-   try {
-      const response = await testService.testHistory();
-      testHistory.value = response;
-   } catch (error) {
-      $toast.error(error.response.data.message);
-   } finally {
-      loading.value = false;
-   }
-}
 
 const goToLink = (index, type) => {
    router.push({
@@ -34,7 +19,7 @@ const goToLink = (index, type) => {
 };
 
 onMounted(() => {
-   getHistortTest();
+   getTestHistory();
 });
 </script>
 
@@ -56,11 +41,7 @@ onMounted(() => {
                </tr>
             </thead>
             <tbody>
-               <tr
-                  class="bg-white border-b hover:bg-gray-100 transition-all duration-300 text-center"
-                  v-for="(item, i) in testHistory"
-                  :key="item"
-               >
+               <tr class="bg-white border-b hover:bg-gray-100 transition-all duration-300 text-center" v-for="(item, i) in testHistory" :key="item">
                   <td class="p-4 font-semibold">
                      {{ i }}
                   </td>
@@ -74,14 +55,7 @@ onMounted(() => {
                         @click="goToLink(item.id, item.type)"
                      >
                         Ko'rish
-                        <svg
-                           width="24"
-                           height="25"
-                           viewBox="0 0 24 25"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
-                           class="w-5"
-                        >
+                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5">
                            <path
                               d="M10 12.3252C10 12.8556 10.2107 13.3643 10.5858 13.7394C10.9609 14.1145 11.4696 14.3252 12 14.3252C12.5304 14.3252 13.0391 14.1145 13.4142 13.7394C13.7893 13.3643 14 12.8556 14 12.3252C14 11.7948 13.7893 11.2861 13.4142 10.911C13.0391 10.5359 12.5304 10.3252 12 10.3252C11.4696 10.3252 10.9609 10.5359 10.5858 10.911C10.2107 11.2861 10 11.7948 10 12.3252Z"
                               stroke="#3061af"

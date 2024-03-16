@@ -1,24 +1,9 @@
 <script setup>
-import { paymentService } from '~/services/paymentService';
 definePageMeta({
    layout: 'cabinet'
 });
 
-const data = ref([]);
-
-const loading = ref(false);
-
-async function getPaymentsHistory() {
-   loading.value = true;
-   try {
-      const response = await paymentService.paymentsHistory();
-      data.value = response.results;
-   } catch (error) {
-      console.log(error);
-   } finally {
-      loading.value = false;
-   }
-}
+const { payments_history, getPaymentsHistory, loading } = usePayment();
 
 onMounted(() => {
    getPaymentsHistory();
@@ -42,16 +27,16 @@ onMounted(() => {
             <tbody>
                <tr
                   class="bg-white border-b hover:bg-gray-100 transition-all duration-300 text-center"
-                  v-for="(item, index) in data"
-                  :key="item.id"
+                  v-for="(item, index) in payments_history.results"
+                  :key="index"
                >
                   <td class="px-6 py-4 font-medium">{{ index + 1 }}</td>
                   <td class="px-6 py-4 font-medium">{{ item.payment_system }}</td>
-                  <td class="px-6 py-4 font-medium">{{ item.amount }} so'm</td>
+                  <td class="px-6 py-4 font-medium">{{ currencyFormat(item.amount) }} so'm</td>
                   <td class="px-6 py-4 font-medium">{{ item.date }}</td>
                   <td class="px-6 py-4 font-medium">
-                     <span class="text-secondary" v-if="item.completed">To'langan</span>
-                     <span class="text-danger" v-else>To'lanmagan</span>
+                     <span class="text-primary" v-if="item.completed">To'langan</span>
+                     <span class="text-red-600" v-else>To'lanmagan</span>
                   </td>
                </tr>
             </tbody>

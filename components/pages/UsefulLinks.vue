@@ -34,15 +34,9 @@
                   }"
                >
                   <SwiperSlide v-for="item in 10" :key="item">
-                     <a
-                        href="#"
-                        class="flex flex-col items-center text-center gap-2 rounded border border-border backdrop-blur-md p-4 bg-card"
-                     >
+                     <a href="#" class="flex flex-col items-center text-center gap-2 rounded border border-border backdrop-blur-md p-4 bg-card">
                         <div class="h-[64px] w-[64px] flex-shrink-0 mr-4">
-                           <img
-                              src="https://innovation.gov.uz/media/interactive_services/gerb_RTTbHAg.png"
-                              class="w-full h-full object-contain"
-                           />
+                           <img src="https://innovation.gov.uz/media/interactive_services/gerb_RTTbHAg.png" class="w-full h-full object-contain" />
                         </div>
                         <p class="text-sm text-foreground">
                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est officiis, unde iusto nihil

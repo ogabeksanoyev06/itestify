@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { testService } from '~/services/testService';
 import { test } from '~/constants/test.js';
 
 const route = useRoute();
@@ -92,9 +91,7 @@ onMounted(() => {
       <div class="container">
          <div v-for="(item, i) in testHistoryId" :key="i">
             <div class="text-center mx-auto mb-8">
-               <span
-                  class="rounded-full shadow-[0px_0px_10px_0px_rgba(100,100,111,1)] px-6 py-2 bg-primary text-white text-base font-semibold"
-               >
+               <span class="rounded-full shadow-[0px_0px_10px_0px_rgba(100,100,111,1)] px-6 py-2 bg-primary text-white text-base font-semibold">
                   {{ typesTestValue }} natijasi
                </span>
             </div>
@@ -126,8 +123,7 @@ onMounted(() => {
                         :class="
                            ({ 'border-primary text-primary': question.isPicked && question.answer === aIndex + 1 },
                            {
-                              'text-red-600 border-primary':
-                                 !question.is_correct && question.isPicked && aIndex + 1 === question.answer
+                              'text-red-600 border-primary': !question.is_correct && question.isPicked && aIndex + 1 === question.answer
                            })
                         "
                      >

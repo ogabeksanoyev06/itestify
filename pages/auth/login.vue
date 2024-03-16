@@ -1,17 +1,9 @@
 <script setup>
-import { useRouter } from 'vue-router';
-import { authService } from '~/services/authService';
-import { access_token, refresh_token } from '~/services/tokenService';
+import { ref } from 'vue';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 definePageMeta({ layout: 'auth' });
-
-const { $toast } = useNuxtApp();
-
-const router = useRouter();
-
-const loading = ref(false);
 
 const form = ref({ username: '', password: '' });
 
@@ -25,47 +17,15 @@ const passwordSee = () => (passwordField.value = !passwordField.value);
 
 const resetPasswordSee = () => (resetPasswordField.value = !resetPasswordField.value);
 
-async function loginToSystem() {
-   loading.value = true;
-   try {
-      const response = await authService.login({
-         username: form.value.username,
-         password: form.value.password
-      });
+const { login, resetPassword, loading } = useAuth();
 
-      access_token.value = response.access;
-      refresh_token.value = response.refresh;
+const loginToSystem = () => {
+   login(form.value);
+};
 
-      // const accessTokenCookie = useCookie('access_token', { sameSite: 'strict' });
-      // const refreshTokenCookie = useCookie('refresh_token', { sameSite: 'strict' });
-
-      // accessTokenCookie.value = response.access;
-      // refreshTokenCookie.value = response.refresh;
-      router.push({ path: '/' });
-      $toast.success('Tizimga muvaffaqiyatli kirdingiz!');
-   } catch (error) {
-      $toast.error(error.response.data.detail);
-   } finally {
-      loading.value = false;
-   }
-}
-
-async function resetPassword() {
-   loading.value = true;
-   try {
-      const response = await authService.resetPassword({
-         username: resetForm.value.username,
-         password: resetForm.value.password
-      });
-      if (response.code === 200) {
-         $toast.success("Parol muvaffaqiyatli o'zgartirildi");
-      }
-   } catch (error) {
-      $toast.error('Xatolik yuz berdi');
-   } finally {
-      loading.value = false;
-   }
-}
+const resetToPassword = () => {
+   resetPassword(resetForm.value);
+};
 </script>
 
 <template>
@@ -158,7 +118,7 @@ async function resetPassword() {
                      <DialogDescription> Malumotlarni to'ldiring va parolingizni yangilang </DialogDescription>
                   </DialogHeader>
                   <VForm v-slot="{ handleSubmit }">
-                     <form @submit.prevent="handleSubmit(resetPassword)">
+                     <form @submit.prevent="handleSubmit(resetToPassword)">
                         <div class="flex flex-col space-y-4">
                            <div class="flex flex-col">
                               <VField name="username" rules="required|max:60|min:3" v-model="resetForm.username" v-slot="{ errors }">

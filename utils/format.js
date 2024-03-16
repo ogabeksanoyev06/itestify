@@ -1,26 +1,28 @@
 export function phoneFormat(phoneNumber) {
    try {
-      if (!phoneNumber) return false; // Telefon raqami mavjud emas yoki bo'sh bo'lsa false qaytariladi
-      const cleaned = ('' + phoneNumber).replace(/\D/g, ''); // Raqamni faqat sonlar qatoriga aylantiramiz
-      const match = cleaned.match(/^(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})$/); // Raqamni belgilangan formatda ajratamiz
+      if (!phoneNumber) return false;
+      const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+      const match = cleaned.match(/^(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})$/);
       if (match) {
-         return `+${match[1]} ${match[2]} ${match[3]}-${match[4]}-${match[5]}`; // Formatlangan raqamni qaytarib beramiz
+         return `${match[1]} ${match[2]} ${match[3]} ${match[4]} ${match[5]}`;
       }
-      return phoneNumber; // Formatlanmagan raqamni o'ziga qaytarib beramiz
+      return phoneNumber;
    } catch {
-      return phoneNumber; // Xatolik holatida raqamni o'ziga qaytarib beramiz
+      return phoneNumber;
    }
 }
 
-export function currencyFormat(amount, currency = 'UZS') {
+export function currencyFormat(amount) {
    try {
-      if (!amount) return 0; // Miqdor mavjud emas yoki bo'sh bo'lsa false qaytariladi
+      if (!amount) return '0';
       const formatter = new Intl.NumberFormat('uz-UZ', {
-         currency: currency,
-         minimumFractionDigits: 2 // Kamida 2 belgi orasida keskin sonlarni qo'llab-quvvatlash
+         style: 'decimal',
+         useGrouping: true,
+         minimumFractionDigits: 0,
+         maximumFractionDigits: 0
       });
-      return formatter.format(amount); // Formatlangan miqdorni qaytarib beramiz
+      return formatter.format(amount).replace(/,/g, ' ');
    } catch {
-      return amount; // Xatolik holatida miqdorni o'ziga qaytarib beramiz
+      return amount;
    }
 }

@@ -1,6 +1,6 @@
-<script setup>
+<!-- <script setup>
 import { ref, watch } from 'vue';
-import { universityService } from '~/services/universityService';
+// import { universityService } from '~/services/universityService';
 
 import { Pagination, PaginationEllipsis, PaginationList, PaginationListItem } from '@/components/ui/pagination';
 
@@ -45,11 +45,11 @@ watch(
    },
    { deep: true }
 );
-</script>
+</script> -->
 
 <template>
    <div class="py-8">
-      <div class="container">
+      <!-- <div class="container">
          <h1 class="text-center sm:text-left text-xl font-semibold">Qabul kvotalari va kirish ballari</h1>
          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
             <Input placeholder="Universitet nomi" type="text" v-model="params.university__name" />
@@ -85,21 +85,11 @@ watch(
                </tbody>
             </table>
          </div>
-         <Pagination
-            v-slot="{ page }"
-            :total="Math.ceil(total / params.limit) * 10"
-            :sibling-count="1"
-            show-edges
-            :default-page="1"
-         >
+         <Pagination v-slot="{ page }" :total="Math.ceil(total / params.limit) * 10" :sibling-count="1" show-edges :default-page="1">
             <PaginationList v-slot="{ items }" class="flex items-center gap-1">
                <template v-for="(item, index) in items">
                   <PaginationListItem v-if="item.type === 'page'" :key="index" :value="item.value" as-child>
-                     <Button
-                        class="w-8 h-8 sm:w-9 sm:h-9 p-0"
-                        :variant="item.value === page ? 'default' : 'outline'"
-                        @click="goToPage(item.value)"
-                     >
+                     <Button class="w-8 h-8 sm:w-9 sm:h-9 p-0" :variant="item.value === page ? 'default' : 'outline'" @click="goToPage(item.value)">
                         {{ item.value }}
                      </Button>
                   </PaginationListItem>
@@ -107,6 +97,6 @@ watch(
                </template>
             </PaginationList>
          </Pagination>
-      </div>
+      </div> -->
    </div>
 </template>

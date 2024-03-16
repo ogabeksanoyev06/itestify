@@ -1,9 +1,13 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
    devtools: { enabled: true },
    app: {
       pageTransition: { name: 'page', mode: 'out-in' },
       layoutTransition: { name: 'layout', mode: 'out-in' }
+   },
+   runtimeConfig: {
+      public: {
+         apiBaseUrl: 'https://api.exam-test.uz/api/'
+      }
    },
    modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxtjs/color-mode', '@nuxtjs/i18n', '@vueuse/nuxt', 'nuxt-swiper'],
    css: ['@/assets/styles/main.scss'],
@@ -15,9 +19,6 @@ export default defineNuxtConfig({
          src: '~/plugins/aos',
          mode: 'client',
          ssr: false
-      },
-      {
-         src: '~/plugins/api.js'
       }
    ],
    shadcn: {
