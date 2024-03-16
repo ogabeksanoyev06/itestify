@@ -44,8 +44,6 @@ onMounted(() => {
    <section class="py-8">
       <PageLoader v-if="loading" />
       <div class="container" v-else>
-         {{ hasActiveTest }}
-
          <div class="flex flex-col justify-center sm:justify-start space-y-4">
             <h1 class="text-center sm:text-left text-2xl font-semibold sm:text-3xl">Abiturientlar va o'quvchilar uchun test topshirish tizimi</h1>
             <p class="text-center sm:text-left text-sm text-muted-foreground sm:text-base">
