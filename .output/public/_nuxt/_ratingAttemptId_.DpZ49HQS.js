@@ -1,1 +1,0 @@
-import{_ as t}from"./entry.ZVZ_3oFo.js";import{H as e,G as r}from"./swiper-vue.Cb-HU16S.js";const o={setup(){return{}}};function n(s,c,a,p,_,f){return r(),e("div")}const d=t(o,[["render",n]]);export{d as default};

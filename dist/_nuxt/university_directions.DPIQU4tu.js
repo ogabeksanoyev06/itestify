@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper.DlAUqK2U.js";import{J as t,I as c}from"./swiper-vue.DvdnvJXd.js";const o={},r={class:"py-8"};function s(n,_){return c(),t("div",r)}const f=e(o,[["render",s]]);export{f as default};
