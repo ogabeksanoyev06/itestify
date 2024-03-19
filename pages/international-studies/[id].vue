@@ -45,10 +45,11 @@ function selectedSpecification(item) {
 
 function startTest() {
    const paramtersModel = {
+      test_type_id: research_id.value,
       specification_id: selected_specification.value,
       question_count: questionsCount.value
    };
-   startResearchesTest(research_id.value, paramtersModel);
+   startResearchesTest(paramtersModel);
 }
 
 onMounted(() => {
@@ -68,7 +69,7 @@ onMounted(() => {
                {{ researches.short_description }}
             </p>
          </div>
-         <div class="flex">
+         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
             <Select v-model="questionsCount">
                <SelectTrigger>
                   <SelectValue placeholder="Savollar sonini tanlang" />
@@ -105,7 +106,21 @@ onMounted(() => {
             </div>
          </div>
 
-         <div class="flex justify-center mt-6"><Button size="lg" @click="startTest">Testni boshlash</Button></div>
+         <div class="flex justify-center mt-6">
+            <Button size="lg" @click="startTest" :disabled="!selected_specification || !questionsCount || loading">
+               <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="mr-2 h-4 w-4 animate-spin" v-if="loading">
+                  <path
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     stroke-width="2"
+                     d="M21 12a9 9 0 1 1-6.219-8.56"
+                  ></path>
+               </svg>
+               Testni boshlash
+            </Button>
+         </div>
       </div>
    </div>
 </template>

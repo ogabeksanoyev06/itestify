@@ -17,6 +17,10 @@ const menu = ref([
    {
       name: 'Xalqaro tadqiqotlar',
       route: '/international-studies'
+   },
+   {
+      name: 'Kurslar',
+      route: '/courses'
    }
    // {
    //    name: "Ta'lim yo'nalishlari",

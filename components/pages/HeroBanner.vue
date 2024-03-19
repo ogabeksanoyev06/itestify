@@ -45,8 +45,8 @@ import { Button } from '@/components/ui/button';
                   />
                </h1>
                <p class="leading-normal text-center text-muted-foreground sm:text-base sm:leading-6 xl:text-left">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio id repudiandae accusantium quidem porro deleniti placeat, consequuntur
-                  recusandae corporis in non possimus inventore eum et consectetur ipsam tempora culpa. Dolorum.
+                  Bu platforma sizga test topshirish, sinovlarni o'tkazish va natijalarni o'rganish imkoniyatini beradi. Bu yerga kirishingiz bilan,
+                  sizning bilimingizni sinash va rivojlantirishga yordam beradigan qulay va samarali vositaga ega bo'lasiz.
                </p>
                <div class="flex justify-center space-x-2 md:space-x-4 xl:justify-start">
                   <nuxt-link to="/choose-test"><Button variant="outline">Test yechish</Button></nuxt-link>

@@ -1,13 +1,5 @@
 <script setup>
-import {
-   Select,
-   SelectContent,
-   SelectGroup,
-   SelectItem,
-   SelectLabel,
-   SelectTrigger,
-   SelectValue
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 </script>
 
@@ -138,9 +130,7 @@ import { Button } from '@/components/ui/button';
                         <td class="px-6 py-4">10</td>
                         <td class="px-6 py-4">1.1</td>
                      </tr>
-                     <tr
-                        class="border-b border-border hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
-                     >
+                     <tr class="border-b border-border hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
                         <th colspan="2" class="px-6 py-4 text-center">Umumiy ball</th>
                         <th colspan="2" class="px-6 py-4 text-center">156</th>
                      </tr>
@@ -160,16 +150,11 @@ import { Button } from '@/components/ui/button';
                         <td class="px-6 py-4">10</td>
                         <td class="px-6 py-4">3.1</td>
                      </tr>
-                     <tr
-                        class="border-b border-border hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
-                     >
+                     <tr class="border-b border-border hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
                         <th colspan="2" class="px-6 py-4 text-center">Umumiy ball</th>
                         <th colspan="2" class="px-6 py-4 text-center">156</th>
                      </tr>
-                     <tr
-                        class="text-white"
-                        style="background: linear-gradient(rgb(68, 137, 247) 0%, rgb(0, 78, 203) 100%)"
-                     >
+                     <tr class="text-white" style="background: linear-gradient(rgb(68, 137, 247) 0%, rgb(0, 78, 203) 100%)">
                         <th colspan="2" class="px-6 py-4 text-center">5ta fan bo'yicha umumiy ball</th>
                         <th colspan="2" class="px-6 py-4 text-center">156</th>
                      </tr>

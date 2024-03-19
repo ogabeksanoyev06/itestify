@@ -147,10 +147,10 @@ export const useTests = () => {
       }
    };
 
-   const startResearchesTest = async (research_id, paramtersModel) => {
+   const startResearchesTest = async (paramtersModel) => {
       loading.value = true;
       try {
-         const response = await api.post(`tests/researches/${research_id}/StartTest/`, paramtersModel);
+         const response = await api.post(`tests/researches/test/start/`, paramtersModel);
          if (parseInt(response.code) === 500) {
             $toast.error(response.message);
          } else {
@@ -158,7 +158,6 @@ export const useTests = () => {
          }
       } catch (error) {
          $toast.error(error.response.data.message);
-         console.log(error.response);
       } finally {
          loading.value = false;
       }

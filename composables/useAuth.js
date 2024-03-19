@@ -62,7 +62,7 @@ export const useAuth = () => {
    };
 
    const isAuthenticated = computed(() => {
-      return accessToken.value && refreshToken.value;
+      return !!accessToken.value && !!refreshToken.value;
    });
 
    const logout = () => {

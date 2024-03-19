@@ -1,15 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import Loader from '~/components/pages/Loader.vue';
+// import { ref, onMounted } from 'vue';
+// import Loader from '~/components/pages/Loader.vue';
 
-const loading = ref(false);
-
-onMounted(() => {});
+useSeoMeta({
+   title: 'iTestify'
+});
 </script>
 
 <template>
    <div>
-      <Loader v-if="loading" />
       <div>
          <NuxtLoadingIndicator />
          <NuxtLayout>

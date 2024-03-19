@@ -12,6 +12,7 @@ export const useApi = () => {
       timeout: 10000
    });
 
+   // Request interceptor
    api.interceptors.request.use(
       (config) => {
          const token = accessToken.value;
@@ -29,19 +30,17 @@ export const useApi = () => {
       (response) => response.data ?? { noData: 'empty data' },
       async (error) => {
          if (error.response && error.response.status === 403) {
+            const refreshToken = useCookie('refresh_token').value;
             try {
                const response = await api.post('users/token/refresh/', {
-                  refresh: refreshToken.value
+                  refresh: refreshToken
                });
-               useCookie('access_token', response.access);
+               const accessTokenCookie = useCookie('access_token');
+               accessTokenCookie.value = response.access;
+               error.config.headers.Authorization = `Bearer ${response.access}`;
                return api.request(error.config);
             } catch (refreshError) {
-               $toast.error('Token yangilash muvaffaqiyatsiz:', refreshError);
-            }
-         } else {
-            const errorMessage = ErrorHandle(error.response.status);
-            if (errorMessage) {
-               $toast.error(errorMessage);
+               $toast.error('Token yangilash muvaffaqiyatsiz:', refreshError.message);
             }
          }
          return Promise.reject(error);
@@ -49,18 +48,3 @@ export const useApi = () => {
    );
    return api;
 };
-
-function ErrorHandle(statusCode) {
-   switch (statusCode) {
-      case 400:
-         return "So'rov noto'g'ri. Iltimos, ma'lumotlaringizni tekshiring va qayta urinib ko'ring.";
-      case 401:
-         return "Sizning identifikatsiyangiz tasdiqlanmadi. Iltimos, tizimga qayta kirish yoki ro'yxatdan o'tishga urinib ko'ring.";
-      case 403:
-         return "Sizga kerakli huquqlar yo'q. Iltimos, administratorga murojaat qiling.";
-      case 404:
-         return "So'ralgan resurs topilmadi. Iltimos, URL manzilini tekshiring.";
-      case 500:
-         return "Serverda ichki xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko'ring.";
-   }
-}

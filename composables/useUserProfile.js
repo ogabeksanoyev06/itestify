@@ -26,10 +26,14 @@ export const useUserProfile = () => {
    const updateUserProfile = async () => {
       loading.value = true;
       const formData = new FormData();
-      formData.append('username', user.value.username);
       formData.append('first_name', user.value.first_name);
       formData.append('last_name', user.value.last_name);
-      formData.append('phone', '998' + user.value.phone);
+      if (user.value.username !== null) {
+         formData.append('username', user.value.username);
+      }
+      if (user.value.phone !== null) {
+         formData.append('phone', '998' + user.value.phone);
+      }
       if (user.value.father_name !== null) {
          formData.append('father_name', user.value.father_name);
       }

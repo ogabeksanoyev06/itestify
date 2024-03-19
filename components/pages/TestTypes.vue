@@ -12,6 +12,7 @@ onMounted(() => {
          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div v-for="(item, index) in testTypes" :key="index" data-aos="fade-up" :data-aos-duration="(index + 1) * 100">
                <div
+                  ref="container"
                   class="rounded-xl border border-border bg-card text-card-foreground shadow min-h-[200px] h-full cursor-pointer hover:shadow-none transition-all duration-300"
                >
                   <div class="flex flex-col justify-center h-full gap-y-2 p-6">

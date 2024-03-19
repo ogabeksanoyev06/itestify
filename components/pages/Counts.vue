@@ -7,7 +7,7 @@ onMounted(() => {
 </script>
 
 <template>
-   <div class="py-16 my-6">
+   <div class="py-16 my-6 bg-gray-100">
       <div class="container">
          <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <div class="bg-card rounded-lg p-8 text-center flex flex-col gap-2 relative border-border border-b">

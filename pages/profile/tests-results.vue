@@ -45,7 +45,10 @@ onMounted(() => {
                   <td class="p-4 font-semibold">
                      {{ i }}
                   </td>
-                  <td class="p-4">18.11.2023 10:19 - 11:15</td>
+                  <td class="p-4">
+                     {{ dayjs(item.started).format('DD.MM.YYYY') }}
+                     {{ dayjs(item.started).format('HH:mm') }} - {{ dayjs(item.finished).format('HH:mm') }}
+                  </td>
 
                   <td class="p-4">{{ item.type }}</td>
                   <td class="p-4">70.7</td>

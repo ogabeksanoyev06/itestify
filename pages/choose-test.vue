@@ -95,7 +95,6 @@ onMounted(() => {
                         </Button>
                      </div>
                   </div>
-
                   <div class="absolute top-0 right-0">
                      <Badge variant="secondary" class="text-blue-500 text-sm">{{ item.price }} so'm</Badge>
                   </div>

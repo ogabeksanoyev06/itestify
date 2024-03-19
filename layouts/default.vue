@@ -15,6 +15,6 @@ const route = useRoute();
          </main>
       </div>
 
-      <AppFooter v-if="route.name !== 'test'" />
+      <AppFooter v-if="route.name === 'index'" />
    </div>
 </template>

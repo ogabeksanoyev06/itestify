@@ -3,6 +3,10 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import TestLoader from '~/components/pages/TestLoader.vue';
 
+definePageMeta({
+   middleware: 'auth'
+});
+
 const {
    tests,
    testTimer,
