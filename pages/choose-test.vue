@@ -10,9 +10,9 @@ const router = useRouter();
 const { testTypes, loading, boughtLoading, buyExams, getTestTypes } = useTests();
 const { hasActiveTest, getActiveTest } = useActiveTest();
 
-const handleTestStart = (testType) => {
+const handleTestStart = async (testType) => {
    try {
-      getActiveTest(testType);
+      await getActiveTest();
       if (hasActiveTest.value) {
          router.push({
             path: '/test'
@@ -70,9 +70,9 @@ onMounted(() => {
                         </p>
                      </div>
                      <div class="flex items-center justify-center flex-col sm:flex-row sm:justify-between mt-auto">
-                        <Button v-if="item.bought" class="w-full sm:w-auto" @click="handleTestStart(item.name)"> Testni boshlash </Button>
+                        <Button v-if="item.is_free" class="w-full sm:w-auto" @click="handleTestStart(item.name)"> Testni boshlash </Button>
                         <Button
-                           v-if="!item.bought"
+                           v-if="!item.is_free"
                            variant="outline"
                            class="w-full sm:w-auto"
                            @click="buyExams(item.id, 'test')"

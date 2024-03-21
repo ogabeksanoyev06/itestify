@@ -46,60 +46,17 @@ const isDark = computed({
 });
 
 onMounted(async () => {
-   await userProfile();
+   if (isAuthenticated.value) {
+      await userProfile();
+   }
 });
 </script>
 
 <template>
    <header class="sticky z-40 top-0 bg-background/80 backdrop-blur-lg border-b border-border -mb-px">
       <div class="container flex justify-between h-16 items-center">
-         <div class="mr-4 flex flex-1">
-            <Sheet>
-               <SheetTrigger as-child>
-                  <Button variant="outline" size="icon" class="flex md:hidden">
-                     <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
-                        <path
-                           d="M4 6.3252H20M4 12.3252H20M4 18.3252H20"
-                           stroke="#354052"
-                           stroke-width="2"
-                           stroke-linecap="round"
-                           stroke-linejoin="round"
-                        />
-                     </svg>
-                  </Button>
-               </SheetTrigger>
-               <SheetContent :side="'left'">
-                  <SheetHeader>
-                     <SheetTitle>
-                        <nuxt-link to="/" class="mr-6 flex items-center space-x-1 text-base">
-                           <svg class="h-6 w-6 rotate-[315deg]" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_102_1338)">
-                                 <path d="M208 128L128 208" stroke="#41B883" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
-                                 <path d="M192 40L40 192" stroke="#41B883" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
-                              </g>
-                              <defs>
-                                 <clipPath id="clip0_102_1338">
-                                    <rect width="256" height="256" fill="white"></rect>
-                                 </clipPath>
-                              </defs>
-                           </svg>
-                           <span class="font-bold"> iTestify </span>
-                        </nuxt-link>
-                     </SheetTitle>
-                  </SheetHeader>
-                  <nav class="flex flex-col space-y-4 text-sm mt-8">
-                     <nuxt-link
-                        :to="{ path: item.route }"
-                        class="transition-colors hover:text-foreground/80 text-foreground/60 font-medium"
-                        v-for="(item, index) in menu"
-                        :key="index"
-                     >
-                        {{ item.name }}
-                     </nuxt-link>
-                  </nav>
-               </SheetContent>
-            </Sheet>
-            <nuxt-link to="/" class="mr-6 items-center space-x-1 text-base hidden md:flex">
+         <div class="sm:mr-4 flex flex-1">
+            <nuxt-link to="/" class="sm:mr-6 flex items-center space-x-1 text-base">
                <svg class="h-6 w-6 rotate-[315deg]" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_102_1338)">
                      <path d="M208 128L128 208" stroke="#41B883" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -125,10 +82,10 @@ onMounted(async () => {
                </nuxt-link>
             </nav>
          </div>
-         <div class="flex items-center justify-end space-x-2 sm:space-x-2">
+         <div class="flex items-center justify-end space-x-3 sm:space-x-2">
             <DropdownMenu>
                <DropdownMenuTrigger as-child>
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" class="border-none" size="icon">
                      <svg
                         width="15"
                         height="15"
@@ -339,6 +296,54 @@ onMounted(async () => {
             <nuxt-link to="/auth/login" v-else>
                <Button>Tizimga kirish</Button>
             </nuxt-link>
+            <Sheet>
+               <SheetTrigger as-child>
+                  <Button variant="outline" size="icon" class="flex md:hidden border-none">
+                     <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 24 24"
+                        class="h-6 w-6"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path d="M3 4H21V6H3V4ZM9 11H21V13H9V11ZM3 18H21V20H3V18Z"></path>
+                     </svg>
+                  </Button>
+               </SheetTrigger>
+               <SheetContent :side="'left'">
+                  <SheetHeader>
+                     <SheetTitle>
+                        <nuxt-link to="/" class="mr-6 flex items-center space-x-1 text-base">
+                           <svg class="h-6 w-6 rotate-[315deg]" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <g clip-path="url(#clip0_102_1338)">
+                                 <path d="M208 128L128 208" stroke="#41B883" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
+                                 <path d="M192 40L40 192" stroke="#41B883" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
+                              </g>
+                              <defs>
+                                 <clipPath id="clip0_102_1338">
+                                    <rect width="256" height="256" fill="white"></rect>
+                                 </clipPath>
+                              </defs>
+                           </svg>
+                           <span class="font-bold"> iTestify </span>
+                        </nuxt-link>
+                     </SheetTitle>
+                  </SheetHeader>
+                  <nav class="flex flex-col space-y-4 text-sm mt-8">
+                     <nuxt-link
+                        :to="{ path: item.route }"
+                        class="transition-colors hover:text-foreground/80 text-foreground/60 font-medium"
+                        v-for="(item, index) in menu"
+                        :key="index"
+                     >
+                        {{ item.name }}
+                     </nuxt-link>
+                  </nav>
+               </SheetContent>
+            </Sheet>
          </div>
       </div>
    </header>

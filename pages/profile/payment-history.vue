@@ -3,6 +3,10 @@ definePageMeta({
    layout: 'cabinet'
 });
 
+definePageMeta({
+   middleware: ['auth']
+});
+
 const { payments_history, getPaymentsHistory, loading } = usePayment();
 
 onMounted(() => {

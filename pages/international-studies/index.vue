@@ -5,14 +5,24 @@ import { Badge } from '@/components/ui/badge';
 import PageLoader from '~/components/pages/PageLoader.vue';
 
 const { testTypes, loading, buyExams, getTestTypes } = useTests();
+const { hasActiveTest, getActiveTest } = useActiveTest();
 
 const router = useRouter();
 
-function goToResearchTest(research_id) {
-   router.push({
-      path: `/international-studies/${research_id}`
-   });
-}
+const handleTestStart = async (research_id) => {
+   try {
+      await getActiveTest();
+      if (hasActiveTest.value) {
+         router.push({
+            path: '/test'
+         });
+      } else {
+         router.push({
+            path: `/international-studies/${research_id}`
+         });
+      }
+   } catch (error) {}
+};
 
 onMounted(() => {
    getTestTypes('research');
@@ -49,9 +59,9 @@ onMounted(() => {
                         </p>
                      </div>
                      <div class="flex items-center justify-center flex-col sm:flex-row sm:justify-between mt-auto">
-                        <Button v-if="item.bought" class="w-full sm:w-auto" @click="goToResearchTest(item.id)"> Testni boshlash </Button>
+                        <Button v-if="item.is_free" class="w-full sm:w-auto" @click="handleTestStart(item.id, item.name)"> Testni boshlash </Button>
 
-                        <Button v-if="!item.bought" variant="outline" class="w-full sm:w-auto" @click="buyExams(item.id, 'test')">
+                        <Button v-if="!item.is_free" variant="outline" class="w-full sm:w-auto" @click="buyExams(item.id, 'research')">
                            Testni sotib olish
                         </Button>
                         <Button variant="outline" class="w-full sm:w-auto" @click="router.push({ path: '/profile/top-up-balance' })">

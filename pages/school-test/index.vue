@@ -1,7 +1,9 @@
 <script setup>
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-
+definePageMeta({
+   middleware: ['auth']
+});
 const { sciences, classes, getSciences, getClasses, startSchoolTest, loading } = useTests();
 
 const questionsCount = ref(5);

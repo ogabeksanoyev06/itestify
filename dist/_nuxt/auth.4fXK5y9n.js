@@ -1,1 +1,0 @@
-import{e,n as a}from"./entry.DdJuc-3z.js";import{u as i}from"./useAuth.DvCr_U4X.js";import"./swiper-vue.DvdnvJXd.js";import"./useApi.BoEt07ES.js";const f=e((t,r)=>{const{isAuthenticated:o}=i();if(console.log(t),!o)return a("/auth/login")});export{f as default};

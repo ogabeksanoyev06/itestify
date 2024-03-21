@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 import Button from '~/components/ui/button/Button.vue';
 
@@ -25,6 +25,10 @@ onMounted(async () => {
       type: route.query.type
    });
    selectedQuestions();
+});
+
+onBeforeUnmount(() => {
+   testNumber.value = 0;
 });
 </script>
 
@@ -63,7 +67,7 @@ onMounted(async () => {
                <div
                   class="flex flex-col gap-2 shadow-[0_0px_10px] border p-4"
                   :class="{
-                     'shadow-red-600': !selectedQuestion.answer,
+                     'shadow-red-700': !selectedQuestion.answer,
                      'shadow-green-600': selectedQuestion.is_correct,
                      'shadow-red-600': !selectedQuestion.is_correct && selectedQuestion.isPicked
                   }"

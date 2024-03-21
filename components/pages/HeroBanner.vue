@@ -1,5 +1,7 @@
 <script setup>
 import { Button } from '@/components/ui/button';
+
+const { isAuthenticated } = useAuth();
 </script>
 
 <template>
@@ -51,7 +53,7 @@ import { Button } from '@/components/ui/button';
                <div class="flex justify-center space-x-2 md:space-x-4 xl:justify-start">
                   <nuxt-link to="/choose-test"><Button variant="outline">Test yechish</Button></nuxt-link>
 
-                  <nuxt-link to="/auth/register"><Button>Ro'yxatdan o'tish</Button></nuxt-link>
+                  <nuxt-link to="/auth/register" v-if="!isAuthenticated"><Button>Ro'yxatdan o'tish</Button></nuxt-link>
                </div>
             </div>
             <div class="grid grid-cols-5 grid-rows-5 gap-3">

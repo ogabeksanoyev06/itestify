@@ -3,22 +3,22 @@ import Button from '~/components/ui/button/Button.vue';
 import { ref } from 'vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
-const isOpen = ref(false);
+const isOpen = ref(Array(5).fill(false));
 </script>
 
 <template>
-   <div class="py-8">
+   <div class="py-8 overflow-auto">
       <div class="container">
-         <div class="grid gap-6 xl:grid-cols-6 relative">
+         <div class="grid gap-6 xl:grid-cols-6">
             <div class="flex flex-col space-y-6 xl:order-1 xl:col-span-4">
-               <div class="relative aspect-video overflow-hidden rounded-md border border-border bg-primary/20">
+               <div class="relative aspect-video overflow-hidden rounded-md border border-border bg-black">
                   <div class="absolute inset-x-0 inset-y-0 h-full w-full">
                      <iframe
-                        src="https://kinescope.io/jhVuHtMnz4fV51bBjqk3LJ"
+                        src="https://kinescope.io/93iWPpsM5NtcyvuwgYjUdU"
                         allow="autoplay; fullscreen; picture-in-picture; encrypted-media;"
                         frameborder="0"
                         style="position: absolute; width: 100%; height: 100%; top: 0px; left: 0px"
-                     ></iframe>
+                     />
                   </div>
                </div>
                <div class="flex flex-col space-y-4">
@@ -72,14 +72,42 @@ const isOpen = ref(false);
                <div class="flex flex-col space-y-4">
                   <h2 class="text-2xl font-bold">Kurs rejasi</h2>
                   <div class="flex flex-col">
-                     <Collapsible v-model:open="isOpen">
-                        <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
-                        <CollapsibleContent> Yes. Free to use for personal and commercial projects. No attribution required. </CollapsibleContent>
+                     <Collapsible
+                        class="border border-t-0 rounded-t-none first:rounded-t-md last:rounded-b-md first:border-t border-border"
+                        v-for="(item, index) in 5"
+                        v-model:open="isOpen[index]"
+                        :key="item"
+                     >
+                        <CollapsibleTrigger
+                           class="flex w-full items-center justify-between p-4 font-bold transition-all [&[data-state=open]>svg]:rotate-180 text-sm md:text-lg"
+                        >
+                           Can I use this in my project?
+                           <svg
+                              width="15"
+                              height="15"
+                              viewBox="0 0 15 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                           >
+                              <path
+                                 d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
+                                 fill="currentColor"
+                                 fill-rule="evenodd"
+                                 clip-rule="evenodd"
+                              ></path>
+                           </svg>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent class="px-4 text-sm">
+                           <div class="pb-4 pt-0 space-y-2">
+                              <div class="border rounded-md px-4 py-3">1. Template Syntax</div>
+                           </div>
+                        </CollapsibleContent>
                      </Collapsible>
                   </div>
                </div>
             </div>
-            <div class="sticky top-28 xl:order-2 xl:col-span-2">
+            <div class="sticky top-20 xl:order-2 xl:col-span-2">
                <div class="flex flex-col space-y-8 rounded-md border border-border p-6">
                   <div class="flex flex-col space-y-2">
                      <span class="text-slate-700 dark:text-slate-200">Kurs narxi:</span>

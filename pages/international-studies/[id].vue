@@ -1,7 +1,9 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../components/ui/select';
-
+definePageMeta({
+   middleware: ['auth']
+});
 const { loading, researches, getResearchById, startResearchesTest } = useTests();
 
 const route = useRoute();

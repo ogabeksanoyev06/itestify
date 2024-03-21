@@ -3,6 +3,10 @@ definePageMeta({
    layout: 'cabinet'
 });
 
+definePageMeta({
+   middleware: ['auth']
+});
+
 import { useRouter } from 'vue-router';
 
 const { testHistory, getTestHistory, loading } = useTests();

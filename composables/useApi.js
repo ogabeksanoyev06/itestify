@@ -40,7 +40,7 @@ export const useApi = () => {
                error.config.headers.Authorization = `Bearer ${response.access}`;
                return api.request(error.config);
             } catch (refreshError) {
-               $toast.error('Token yangilash muvaffaqiyatsiz:', refreshError.message);
+               // $toast.error('Token yangilash muvaffaqiyatsiz:', refreshError.message);
             }
          }
          return Promise.reject(error);

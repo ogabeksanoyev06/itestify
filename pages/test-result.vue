@@ -5,6 +5,6 @@ const testResult = useCookie('testResult');
 <template>
    <div>
       <h1>Test Natijasi</h1>
-      <pre>{{ testResult }}</pre>
+      <p>{{ testResult?.science }}</p>
    </div>
 </template>
