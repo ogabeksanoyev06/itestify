@@ -7,9 +7,7 @@ definePageMeta({
    layout: 'cabinet'
 });
 
-definePageMeta({
-   middleware: ['auth']
-});
+
 
 const usertype = ref([
    {

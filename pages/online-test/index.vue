@@ -1,9 +1,7 @@
 <script setup>
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-definePageMeta({
-   middleware: ['auth']
-});
+
 </script>
 
 <template>

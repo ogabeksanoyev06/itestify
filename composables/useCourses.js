@@ -7,6 +7,7 @@ export const useCourses = () => {
    const loading = ref(false);
    const activeCategory = ref(null);
    const courses = ref([]);
+   const detailedCourse = ref([]);
    const categories = ref([]);
 
    const getCategories = async () => {
@@ -32,6 +33,17 @@ export const useCourses = () => {
          loading.value = false;
       }
    };
+   const getCoursesId = async (id) => {
+      loading.value = true;
+      try {
+         const response = await api.get(`/courses/${id}`);
+         detailedCourse.value = response;
+      } catch (error) {
+         $toast.error(error.response.data.message);
+      } finally {
+         loading.value = false;
+      }
+   };
 
    const setCategoryId = () => {
       if (categories.value.length > 0) {
@@ -44,5 +56,5 @@ export const useCourses = () => {
       await getCourses(categoryId);
    };
 
-   return { loading, categories, courses, getCategories, getCourses, activeCategory, setCategoryId, selectCategory };
+   return { loading, categories, courses, detailedCourse, getCategories, getCourses, getCoursesId, activeCategory, setCategoryId, selectCategory };
 };

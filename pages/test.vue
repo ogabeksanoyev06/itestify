@@ -3,10 +3,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import TestLoader from '~/components/pages/TestLoader.vue';
 
-definePageMeta({
-   middleware: 'auth'
-});
-
 const router = useRouter();
 
 const selectedQuestion = ref({});

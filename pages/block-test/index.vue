@@ -3,9 +3,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ref } from 'vue';
-definePageMeta({
-   middleware: ['auth']
-});
+
 const { sciences, subjects, getSciences, getSubjects, startSciencesTest, loading } = useTests();
 
 const questionsCount = ref(5);

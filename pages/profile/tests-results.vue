@@ -3,9 +3,7 @@ definePageMeta({
    layout: 'cabinet'
 });
 
-definePageMeta({
-   middleware: ['auth']
-});
+
 
 import { useRouter } from 'vue-router';
 

@@ -26,7 +26,7 @@ onMounted(async () => {
             </Button>
          </div>
          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-            <nuxt-link v-for="(item, index) in courses" :key="index" :to="{ path: `/courses/${id}` }">
+            <nuxt-link v-for="(item, index) in courses" :key="index" :to="`/courses/${item.id}`">
                <div class="group relative flex h-full flex-col overflow-hidden rounded-md border transition hover:bg-muted/30 cursor-pointer">
                   <div class="relative w-full overflow-hidden rounded-t-md border-b">
                      <img :src="item.image" :alt="item.title" class="w-full object-cover" />
