@@ -1,7 +1,4 @@
 <script setup>
-// import { ref, onMounted } from 'vue';
-// import Loader from '~/components/pages/Loader.vue';
-
 useSeoMeta({
    title: 'iTestify'
 });
@@ -9,8 +6,8 @@ useSeoMeta({
 
 <template>
    <div>
+      <NuxtLoadingIndicator height="5" color="var(--primary)" />
       <NuxtLayout>
-         <NuxtLoadingIndicator />
          <NuxtPage />
       </NuxtLayout>
       <client-only>

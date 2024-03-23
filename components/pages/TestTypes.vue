@@ -22,7 +22,7 @@ onMounted(() => {
                         </span>
                      </div>
                      <div class="flex flex-col space-y-2">
-                        <h3 class="font-semibold leading-none tracking-tight">{{ item.title }}</h3>
+                        <h3 class="font-semibold leading-none tracking-tight text-base md:text-xl">{{ item.title }}</h3>
                         <p class="text-sm text-muted-foreground">
                            {{ item.short_description }}
                         </p>

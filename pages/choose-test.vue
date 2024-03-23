@@ -55,14 +55,14 @@ onMounted(() => {
                <div
                   class="relative min-h-[250px] h-full overflow-hidden transition border border-border rounded-md group hover:shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]"
                >
-                  <div class="h-full flex flex-col justify-between p-2 sm:p-4 gap-2">
+                  <div class="h-full flex flex-col justify-between p-5 gap-2">
                      <div class="flex flex-col gap-2">
                         <img
                            src="/assets/images/icon.jpg"
                            class="w-10 h-10 group-hover:scale-105 transition-transform duration-500 mt-1 sm:mt-0 mb-2"
                         />
 
-                        <h3 class="font-semibold text-base leading-none tracking-tight line-clamp-2">
+                        <h3 class="font-semibold text-base md:text-xl leading-none tracking-tight line-clamp-2">
                            {{ item.title }}
                         </h3>
                         <p class="text-sm text-muted-foreground">
@@ -70,14 +70,10 @@ onMounted(() => {
                         </p>
                      </div>
                      <div class="flex items-center justify-center flex-col sm:flex-row sm:justify-between mt-auto">
-                        <Button v-if="item.is_free" class="w-full sm:w-auto" @click="handleTestStart(item.name)"> Testni boshlash </Button>
-                        <Button
-                           v-if="!item.is_free"
-                           variant="outline"
-                           class="w-full sm:w-auto"
-                           @click="buyExams(item.id, 'test')"
-                           :disabled="boughtLoading"
-                        >
+                        <Button v-if="item.is_free || item.bought" class="w-full sm:w-auto" @click="handleTestStart(item.name)">
+                           Testni boshlash
+                        </Button>
+                        <Button v-else variant="outline" class="w-full sm:w-auto" @click="buyExams(item.id, 'test')" :disabled="boughtLoading">
                            <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="mr-2 h-4 w-4 animate-spin" v-if="boughtLoading">
                               <path
                                  fill="none"

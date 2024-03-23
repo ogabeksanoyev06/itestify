@@ -1,1 +1,0 @@
-import{a}from"./entry.DNnybCxd.js";import{J as o,U as t,X as n,u as r,I as l}from"./swiper-vue.DvdnvJXd.js";const c=t("h1",null,"Test Natijasi",-1),f={__name:"test-result",setup(u){const s=a("testResult");return(i,_)=>{var e;return l(),o("div",null,[c,t("p",null,n((e=r(s))==null?void 0:e.science),1)])}}};export{f as default};

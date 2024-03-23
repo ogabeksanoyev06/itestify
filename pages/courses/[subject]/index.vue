@@ -85,6 +85,35 @@ onMounted(() => {
                   </p>
                </div>
                <div class="flex flex-col space-y-4">
+                  <h2 class="text-2xl font-bold">Siz nimani o'rganasiz</h2>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                     <div class="flex items-center space-x-1" v-for="item in detailedCourse.planed_skills" :key="item">
+                        <div>
+                           <svg
+                              width="24"
+                              height="25"
+                              viewBox="0 0 24 25"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-8 w-8 shrink-0 text-muted-foreground"
+                           >
+                              <path
+                                 d="M5 12.3252L10 17.3252L20 7.3252"
+                                 stroke="#354052"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                              />
+                           </svg>
+                        </div>
+                        <div class="flex flex-col">
+                           <span class="text-xl font-semibold">{{ item.name }}</span>
+                           <span class="text-sm md:text-base">{{ item.description }}</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="flex flex-col space-y-4">
                   <h2 class="text-2xl font-bold">Kurs rejasi</h2>
                   <div class="flex flex-col">
                      <Collapsible
@@ -125,8 +154,8 @@ onMounted(() => {
                   </div>
                </div>
             </div>
-            <div class="sticky top-20 xl:order-2 xl:col-span-2">
-               <div class="flex flex-col space-y-8 rounded-md border border-border p-6">
+            <div class="xl:order-2 xl:col-span-2">
+               <div class="!sticky top-20 flex flex-col space-y-8 rounded-md border border-border p-6">
                   <div class="flex flex-col space-y-2">
                      <span class="text-slate-700 dark:text-slate-200">Kurs narxi:</span>
                      <div class="flex items-center justify-between">

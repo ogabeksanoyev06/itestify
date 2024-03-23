@@ -68,7 +68,7 @@ export const useAuth = () => {
    const logout = () => {
       accessToken.value = null;
       refreshToken.value = null;
-      router.push('/');
+      navigateTo('/auth/login');
       $toast.success('Tizimdan chiqdingiz');
    };
 

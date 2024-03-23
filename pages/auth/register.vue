@@ -54,7 +54,7 @@ const registerToSystem = () => {
       <VForm v-slot="{ handleSubmit }">
          <form @submit.prevent="handleSubmit(registerToSystem)">
             <div class="flex flex-col space-y-4">
-               <div class="flex flex-col">
+               <div class="flex flex-col space-y-2">
                   <Label for="terms">Foydalanuvchi turi</Label>
                   <Select id="terms" v-model="selectedUserType">
                      <SelectTrigger>
@@ -70,7 +70,7 @@ const registerToSystem = () => {
                      </SelectContent>
                   </Select>
                </div>
-               <div class="flex flex-col">
+               <div class="flex flex-col space-y-2">
                   <VField name="username" rules="required|max:60|min:3" v-model="user.username" v-slot="{ errors }">
                      <Label for="username">Foydalanuvchi nomi</Label>
                      <Input
@@ -84,7 +84,7 @@ const registerToSystem = () => {
                   </VField>
                </div>
                <div class="grid md:grid-cols-2 space-y-4 md:space-x-2 md:space-y-0">
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="firstName" rules="required|max:60|min:3" v-model="user.firstname" v-slot="{ errors }">
                         <Label for="firstName">Ism</Label>
                         <Input
@@ -97,7 +97,7 @@ const registerToSystem = () => {
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="lastName" rules="required|max:60|min:3" v-model="user.lastname" v-slot="{ errors }">
                         <Label for="lastName">Familiya</Label>
                         <Input
@@ -111,7 +111,7 @@ const registerToSystem = () => {
                      </VField>
                   </div>
                </div>
-               <div class="flex flex-col">
+               <div class="flex flex-col space-y-2">
                   <VField name="phone" rules="required|phone|max:9" v-model="user.phone" v-slot="{ errors }">
                      <Label for="phone">Telefon raqam</Label>
                      <div class="relative w-full">

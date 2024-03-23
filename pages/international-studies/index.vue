@@ -59,11 +59,11 @@ onMounted(() => {
                         </p>
                      </div>
                      <div class="flex items-center justify-center flex-col sm:flex-row sm:justify-between mt-auto">
-                        <Button v-if="item.is_free" class="w-full sm:w-auto" @click="handleTestStart(item.id, item.name)"> Testni boshlash </Button>
-
-                        <Button v-if="!item.is_free" variant="outline" class="w-full sm:w-auto" @click="buyExams(item.id, 'research')">
-                           Testni sotib olish
+                        <Button v-if="item.is_free || item.bought" class="w-full sm:w-auto" @click="handleTestStart(item.id, item.name)">
+                           Testni boshlash
                         </Button>
+
+                        <Button v-else variant="outline" class="w-full sm:w-auto" @click="buyExams(item.id, 'research')"> Testni sotib olish </Button>
                         <Button variant="outline" class="w-full sm:w-auto" @click="router.push({ path: '/profile/top-up-balance' })">
                            Hisobni to'ldirish
                         </Button>
