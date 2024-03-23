@@ -129,7 +129,7 @@ const registerToSystem = () => {
                   </VField>
                </div>
                <div class="grid md:grid-cols-2 space-y-4 md:space-x-2 md:space-y-0">
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="password" rules="required|passwordformat|max:8|min:8" v-model="user.password" v-slot="{ errors }">
                         <Label for="password">Parol</Label>
                         <div class="relative">
@@ -183,7 +183,7 @@ const registerToSystem = () => {
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField
                         name="passwordConfirmation"
                         rules="required|passwordformat|max:8|min:8|confirmed:@password"

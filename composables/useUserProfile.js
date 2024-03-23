@@ -12,10 +12,10 @@ export const useUserProfile = () => {
       try {
          const response = await api.get('users/profile/');
          user.value = response;
-         user.value.phone = response?.phone?.slice(3);
-         user.value.region = response?.region?.id;
-         user.value.district = response?.district?.id;
-         user.value.school = response?.school?.id;
+         user.value.phone = response.phone ? response?.phone?.slice(3) : response.phone;
+         user.value.region = response.region ? response?.region?.id : response.region;
+         user.value.district = response.district ? response?.district?.id : response.district;
+         user.value.school = response.school ? response?.school?.id : response.school;
       } catch (error) {
          console.error(error);
       } finally {

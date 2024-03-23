@@ -7,8 +7,6 @@ definePageMeta({
    layout: 'cabinet'
 });
 
-
-
 const usertype = ref([
    {
       value: 'applicant',
@@ -61,7 +59,7 @@ onUpdated(() => {});
          <form @submit.prevent="handleSubmit(updateUserProfile)">
             <div>
                <div class="grid gap-3 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="username" rules="required|max:60|min:3" v-model="user.username" v-slot="{ errors }">
                         <Label for="username">Foydalanuvchi nomi</Label>
                         <Input
@@ -74,7 +72,7 @@ onUpdated(() => {});
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="first_name" rules="required|max:60|min:3" v-model="user.first_name" v-slot="{ errors }">
                         <Label for="first_name">Ism</Label>
                         <Input
@@ -87,7 +85,7 @@ onUpdated(() => {});
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="last_name" rules="required|max:60|min:3" v-model="user.last_name" v-slot="{ errors }">
                         <Label for="last_name">Familiya</Label>
                         <Input
@@ -100,7 +98,7 @@ onUpdated(() => {});
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="father_name" rules="max:60|min:3" v-model="user.father_name" v-slot="{ errors }">
                         <Label for="father_name">Otasining ismi</Label>
                         <Input
@@ -113,7 +111,7 @@ onUpdated(() => {});
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="email" rules="email" v-model="user.email" v-slot="{ errors }">
                         <Label for="email">Email</Label>
                         <Input
@@ -126,7 +124,7 @@ onUpdated(() => {});
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="phone" rules="phone|max:9" v-model="user.phone" v-slot="{ errors }">
                         <Label for="phone">Telefon raqam</Label>
                         <div class="relative w-full">
@@ -143,7 +141,7 @@ onUpdated(() => {});
                         <span class="text-xs text-red-600">{{ errors[0] }}</span>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="region">
                         <Label for="region">Yo'nalishni tanlang</Label>
                         <Select v-model="user.type">
@@ -161,7 +159,7 @@ onUpdated(() => {});
                         </Select>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="region">
                         <Label for="region">Viloyatni tanlang</Label>
                         <Select v-model="user.region">
@@ -179,7 +177,7 @@ onUpdated(() => {});
                         </Select>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="district">
                         <Label for="district">Tumanni tanlang</Label>
 
@@ -198,7 +196,7 @@ onUpdated(() => {});
                         </Select>
                      </VField>
                   </div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col space-y-2">
                      <VField name="school">
                         <Label for="school">Maktabni tanlang</Label>
                         <Select v-model="user.school" :disabled="user.district === ''">

@@ -70,11 +70,11 @@ onMounted(async () => {
                </svg>
                <span class="font-bold"> iTestify </span>
             </nuxt-link>
-            <nav class="hidden md:flex items-center space-x-6 text-sm">
+            <nav class="hidden md:flex items-center gap-2 text-sm">
                <nuxt-link
                   :to="{ path: item.route }"
-                  class="transition-colors hover:text-foreground/80 text-foreground/60 font-medium"
-                  :class="{ 'text-foreground/90': item.route === route.path }"
+                  class="transition-all duration-300 rounded-full bg-transparent px-4 py-2 text-slate-700 dark:text-slate-200 font-semibold hover:bg-secondary"
+                  :class="{ 'bg-primary/90 text-white hover:!bg-primary/90': item.route === route.path }"
                   v-for="(item, index) in menu"
                   :key="index"
                >
