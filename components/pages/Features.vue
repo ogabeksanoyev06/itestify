@@ -1,4 +1,18 @@
-<script setup></script>
+<script setup>
+const items = [
+   {
+      value: 'item-1',
+      title: 'Qulay interfeys',
+      content: "Oson, tushunarli va qulay interfeys orqali platforma imkoniyatlaridan to'liq foydalanishingiz mumkin"
+   },
+   {
+      value: 'item-2',
+      title: 'Malakali mutaxassislar',
+      content: "Malakali mutaxassislar tomonidan tayyorlangan kurslar orqali o'z malakangizni oshiring. Yanada ko'proq bilimga ega bo'ling."
+   },
+   { value: 'item-3', title: 'Kasblar', content: "Kasbga yo'naltirilgan kurslarimizda 0 dan boshlab ishga tayyor bo'lib chiqing" }
+];
+</script>
 <template>
    <div class="mt-6 py-8">
       <div class="container">
@@ -14,8 +28,8 @@
             </p>
          </div>
          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <div v-for="(item, i) in 4" :key="item" data-aos="fade-up" :data-aos-duration="(i + 1) * 100">
-               <div class="flex flex-col rounded-lg border border-border bg-card text-card-foreground shadow-sm gap-y-2 p-6">
+            <div v-for="(item, i) in items" :key="item" data-aos="fade-up" :data-aos-duration="(i + 1) * 100" class="min-h-[140px]">
+               <div class="flex flex-col rounded-lg border border-border bg-card text-card-foreground shadow-sm space-y-3 p-6 h-full">
                   <span>
                      <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -31,9 +45,9 @@
                         <path d="M2 10h20"></path>
                      </svg>
                   </span>
-                  <h3 class="text-2xl font-semibold leading-none tracking-tight">Qulay interfeys</h3>
+                  <h3 class="text-2xl font-semibold leading-none tracking-tight">{{ item.title }}</h3>
                   <p class="text-sm text-muted-foreground">
-                     Oson, tushunarli va qulay interfeys orqali platforma imkoniyatlaridan to'liq foydalanishingiz mumkin
+                     {{ item.content }}
                   </p>
                </div>
             </div>

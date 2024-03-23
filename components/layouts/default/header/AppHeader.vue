@@ -53,7 +53,7 @@ onMounted(async () => {
 </script>
 
 <template>
-   <header class="sticky z-40 top-0 bg-background/80 backdrop-blur-lg border-b border-border -mb-px">
+   <header class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div class="container flex justify-between h-16 items-center">
          <div class="sm:mr-4 flex flex-1">
             <nuxt-link to="/" class="sm:mr-6 flex items-center space-x-1 text-base">

@@ -7,9 +7,7 @@
                   <p class="text-base sm:text-2xl uppercase font-bold">
                      {{ props.name }}
                   </p>
-                  <h5
-                     class="text-2xl sm:text-3xl relative text-transparent bg-gradient-to-r from-green-500 to-sky-500/50 bg-clip-text font-semibold"
-                  >
+                  <h5 class="text-2xl sm:text-3xl relative text-transparent bg-gradient-to-r from-green-500 to-sky-500/50 bg-clip-text font-semibold">
                      {{ props.title }}
                   </h5>
                   <p class="text-base text-muted-foreground">
@@ -18,7 +16,7 @@
                   <Button variant="secondary" class="w-fit"> Test yechish </Button>
                </div>
                <div :class="order ? 'md:mr-auto' : 'md:ml-auto'">
-                  <img src="https://ipro-five.vercel.app/img/news/img-1.jpg" alt="" class="rounded max-w-full" />
+                  <img :src="props.img" alt="" class="rounded max-w-full" />
                </div>
             </div>
          </div>
@@ -30,6 +28,7 @@ const props = defineProps({
    title: String,
    name: String,
    text: String,
+   img: String,
    order: {
       type: Boolean,
       default: false
