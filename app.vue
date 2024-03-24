@@ -1,12 +1,12 @@
 <script setup>
 useSeoMeta({
-   title: 'iTestify'
+   title: 'Bilim.uz'
 });
 </script>
 
 <template>
    <div>
-      <NuxtLoadingIndicator height="5" color="var(--primary)" />
+      <NuxtLoadingIndicator :height="5" :color="'var(--primary)'" />
       <NuxtLayout>
          <NuxtPage />
       </NuxtLayout>

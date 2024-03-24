@@ -52,16 +52,13 @@ onMounted(() => {
          </div>
          <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-8">
             <div v-for="(item, i) in testTypes" :key="i">
-               <div
-                  class="relative min-h-[250px] h-full overflow-hidden transition border border-border rounded-md group hover:shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]"
-               >
-                  <div class="h-full flex flex-col justify-between p-5 gap-2">
-                     <div class="flex flex-col gap-2">
+               <div class="relative min-h-[250px] h-full overflow-hidden transition rounded-md group border border-border">
+                  <div class="h-full flex flex-col justify-between p-5 space-y-4">
+                     <div class="flex flex-col space-y-3">
                         <img
                            src="/assets/images/icon.jpg"
                            class="w-10 h-10 group-hover:scale-105 transition-transform duration-500 mt-1 sm:mt-0 mb-2"
                         />
-
                         <h3 class="font-semibold text-base md:text-xl leading-none tracking-tight line-clamp-2">
                            {{ item.title }}
                         </h3>

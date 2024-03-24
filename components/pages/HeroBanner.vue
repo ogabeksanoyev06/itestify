@@ -6,7 +6,7 @@ const { isAuthenticated } = useAuth();
 
 <template>
    <div class="container">
-      <div class="min-h-[calc(100vh-56px)] flex items-center py-4 relative">
+      <div class="min-h-[calc(100vh-64px)] flex items-center py-4 relative">
          <div class="grid grid-cols-1 gap-12 xl:grid-cols-2 items-center">
             <div class="flex flex-col space-y-6">
                <div class="flex justify-center xl:justify-start">
@@ -58,16 +58,16 @@ const { isAuthenticated } = useAuth();
             </div>
             <div class="grid grid-cols-5 grid-rows-5 gap-3">
                <div class="col-span-2 row-span-5 overflow-hidden rounded">
-                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/1.jpg" />
+                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/3.jpg" />
                </div>
                <div class="col-span-3 col-start-3 row-span-3 row-start-3 overflow-hidden rounded">
-                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/2.jpg" />
+                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/1.jpg" />
                </div>
                <div class="col-span-2 col-start-3 row-span-2 row-start-1 overflow-hidden rounded">
                   <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/4.jpg" />
                </div>
                <div class="col-start-5 row-span-2 row-start-1 overflow-hidden rounded">
-                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/3.jpg" />
+                  <img class="object-cover w-full h-full transition-all ease-linear hover:scale-110" src="/assets/images/1.jpg" />
                </div>
             </div>
          </div>

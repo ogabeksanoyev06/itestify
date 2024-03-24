@@ -15,11 +15,8 @@ export default defineNuxtConfig({
       { src: './plugins/vee-validate-rules.js' },
       { src: './plugins/vee-validate-components.js' },
       { src: './plugins/sonner.client.js' },
-      {
-         src: '~/plugins/aos',
-         mode: 'client',
-         ssr: false
-      }
+      // { src: './plugins/vue-count-to.js', mode: 'client', ssr: false },
+      { src: '~/plugins/aos', mode: 'client', ssr: false }
    ],
    build: {
       transpile: ['vue-sonner']

@@ -21,6 +21,7 @@ onMounted(async () => {
                v-for="item in categories"
                :key="item.id"
                @click="selectCategory(item.id)"
+               class="rounded-full"
             >
                {{ item.name }}
             </Button>
